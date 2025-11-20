@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>移貸宗師 - AI 風控數據儀表板 & 科技風智能客服</title>
+    <title>MCMAI</title>
     <style>
         /* =========================================
-           1. Dashboard 樣式 (淺色系 / SaaS 風格)
+           1. Dashboard 樣式
            ========================================= */
         :root {
             /* --- Dashboard 原有變數 --- */
@@ -22,7 +22,7 @@
             --color-status-warning: #FBBF24; 
             --color-status-danger: #EF4444; 
 
-            /* --- Chat Widget 專用變數 (方案 B：深色質感風格) --- */
+            /* --- Chat Widget 專用變數 --- */
             --chat-dark-bg: #111827;       /* Header/Footer 背景 */
             --chat-card-bg: #1F2937;       /* 視窗主體背景 */
             --chat-primary: #3B82F6;       /* 強調色 (科技藍) */
@@ -433,10 +433,15 @@
             </p>
             
             <div class="video-container">
-                <div class="video-placeholder">
-                    <div>🎥 團隊介紹影片 (請在程式碼中替換 iframe)</div>
-                </div>
-                </div>
+                <iframe 
+       		  width="560" 
+        	  height="315" 
+        	  src="https://youtu.be/Qn9vKM_2hAA" 
+        	  title="MCMAI 團隊介紹" 
+        	  frameborder="0" 
+        	  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        	 allowfullscreen>
+		</iframe>
         </div>
     </section>
 
@@ -459,7 +464,7 @@
 
     <div class="chat-widget-window" id="chatWindow">
         <div class="chat-header">
-            <span id="uiHeaderTitle">AI 金融客服 (RAG)</span>
+            <span id="uiHeaderTitle">AI借貸智慧客服</span>
             <button class="close-btn" id="closeBtn">&times;</button>
         </div>
         
@@ -550,7 +555,7 @@
         // ----------------------------------------------------
         const i18nData = {
             "zh-TW": {
-                header: "AI 金融客服 (RAG)",
+                header: "AI借貸智慧客服",
                 placeholder: "輸入您的問題...",
                 send: "傳送",
                 welcome: "您好！我是移貸宗師 AI 助理。請問有什麼能幫您的？",
