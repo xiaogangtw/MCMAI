@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCMAI</title>
+    <title>移貸宗師 - AI 風控數據儀表板 & 科技風智能客服</title>
     <style>
         /* =========================================
-           1. Dashboard 樣式 (維持淺色，與 Chat 形成對比或獨立感)
+           1. Dashboard 樣式 (淺色系 / SaaS 風格)
            ========================================= */
         :root {
-            /* --- Dashboard 原有變數 (保持不變) --- */
+            /* --- Dashboard 原有變數 --- */
             --color-light-bg: #F8F9FA; 
             --color-card-bg: #FFFFFF; 
             --color-primary: #3B82F6; 
@@ -23,15 +23,15 @@
             --color-status-danger: #EF4444; 
 
             /* --- Chat Widget 專用變數 (方案 B：深色質感風格) --- */
-            --chat-dark-bg: #111827;       /* Header/Footer 背景 (接近黑色的深藍) */
-            --chat-card-bg: #1F2937;       /* 視窗主體背景 (深灰藍) */
+            --chat-dark-bg: #111827;       /* Header/Footer 背景 */
+            --chat-card-bg: #1F2937;       /* 視窗主體背景 */
             --chat-primary: #3B82F6;       /* 強調色 (科技藍) */
             
-            --chat-text-light: #F9FAFB;    /* 主要文字 (白/淺灰) - 用於黑底 */
-            --chat-text-dark: #1F2937;     /* 深色文字 - 用於白底卡片 */
-            --chat-text-dim: #9CA3AF;      /* 次要文字 (灰) */
+            --chat-text-light: #F9FAFB;    /* 主要文字 */
+            --chat-text-dark: #1F2937;     /* 深色文字 (白底用) */
+            --chat-text-dim: #9CA3AF;      /* 次要文字 */
             
-            --chat-bot-bubble: #374151;    /* 機器人氣泡 (比背景稍亮的深灰) */
+            --chat-bot-bubble: #374151;    /* 機器人氣泡 */
             --chat-user-text: #FFFFFF;     /* 使用者氣泡文字 */
             --chat-input-bg: #374151;      /* 輸入框背景 */
 
@@ -56,6 +56,7 @@
             padding: 20px 0;
             border-bottom: 1px solid var(--color-border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000; /* 讓導航列固定在頂部 */
         }
         .logo { color: var(--color-primary); font-size: 2em; font-weight: 700; }
         nav a { color: var(--color-text-mid); text-decoration: none; margin-left: 30px; transition: color 0.3s; }
@@ -73,6 +74,7 @@
             border: none; border-radius: 8px; cursor: pointer; text-decoration: none;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: inline-block;
         }
         .cta-button:hover {
             background-color: #2563EB; transform: translateY(-2px);
@@ -118,8 +120,45 @@
         .matrix-item h4 { color: var(--color-primary); margin-bottom: 10px; font-weight: 600; }
         .matrix-item p { font-size: 1em; color: var(--color-text-mid); }
 
+        /* --- [NEW] About Us Section (含影片) --- */
+        .about-section {
+            padding: 100px 0;
+            background-color: #FFFFFF; /* 白底，區隔上下區塊 */
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+        }
+        .about-section h2 {
+            font-size: 2.5em; color: var(--color-text-dark); margin-bottom: 20px; font-weight: 700;
+        }
+        .about-section p {
+            font-size: 1.2em; color: var(--color-text-mid); max-width: 800px; margin: 0 auto 40px auto; line-height: 1.8;
+        }
+        /* 影片響應式容器 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px; /* 影片最大寬度 */
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 比例 (9/16 = 0.5625) */
+            height: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* 漂亮的陰影 */
+            background-color: #000; /* 影片載入前的底色 */
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+        /* 影片佔位符 (Placeholder) - 僅供 Demo 顯示 */
+        .video-placeholder {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: #fff; font-size: 1.5em;
+        }
+
         /* --- Footer --- */
-        .contact-cta-section { padding: 80px 0; background-color: var(--color-card-bg); text-align: center; border-top: 1px solid var(--color-border); }
+        .contact-cta-section { padding: 80px 0; background-color: var(--color-light-bg); text-align: center; border-top: 1px solid var(--color-border); }
         .contact-cta-section h2 { color: var(--color-primary); font-size: 2.5em; margin-bottom: 20px; font-weight: 700; }
         .contact-cta-section p { font-size: 1.3em; color: var(--color-text-mid); max-width: 900px; margin: 0 auto 30px auto; }
         footer { background-color: var(--color-text-dark); color: var(--color-light-bg); padding: 30px 0; margin-top: 50px; text-align: center; font-size: 0.9em; }
@@ -136,10 +175,8 @@
         }
 
         /* =========================================
-           2. Chat Widget 樣式 (方案 B：深色質感 + 白色卡片)
+           2. Chat Widget 樣式
            ========================================= */
-        
-        /* 觸發按鈕 */
         .chat-widget-trigger {
             position: fixed; bottom: 30px; right: 30px;
             background-color: var(--chat-primary); color: #fff;
@@ -151,12 +188,11 @@
         .chat-widget-trigger:hover { transform: scale(1.1); }
         .chat-widget-trigger svg { width: 32px; height: 32px; fill: currentColor; }
 
-        /* 聊天視窗 */
         .chat-widget-window {
             position: fixed; bottom: 100px; right: 30px;
             width: 380px; max-width: 90vw; height: 600px;
             background-color: var(--chat-card-bg); border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* 深色模式陰影 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             display: flex; flex-direction: column; overflow: hidden;
             z-index: 9999; transform: translateY(20px); opacity: 0; visibility: hidden;
             transition: all 0.3s ease;
@@ -164,7 +200,6 @@
         }
         .chat-widget-window.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        /* Chat Header */
         .chat-header {
             background-color: var(--chat-dark-bg); padding: 15px 20px;
             color: var(--chat-text-light); font-weight: bold;
@@ -174,7 +209,6 @@
         .close-btn { background: none; border: none; color: var(--chat-text-dim); font-size: 20px; cursor: pointer; }
         .close-btn:hover { color: #fff; }
 
-        /* 訊息區 */
         .chat-messages {
             flex-grow: 1; padding: 20px; overflow-y: auto;
             background-color: var(--chat-card-bg); display: flex; flex-direction: column;
@@ -184,20 +218,15 @@
             border-radius: 12px; line-height: 1.6; word-wrap: break-word;
             font-size: 0.95em;
         }
-        
-        /* 使用者訊息 */
         .message.user {
             background-color: var(--chat-primary); color: var(--chat-user-text);
             margin-left: auto; border-bottom-right-radius: 2px;
         }
-        
-        /* 機器人訊息 (深色質感) */
         .message.bot {
             background-color: var(--chat-bot-bubble); color: var(--chat-text-light);
             margin-right: auto; border-bottom-left-radius: 2px;
         }
 
-        /* --- Carousel Menu (White Card Version) --- */
         .carousel-wrapper { position: relative; margin-bottom: 15px; width: 100%; }
         .card-container {
             display: flex; gap: 12px; overflow-x: auto; padding: 5px;
@@ -205,42 +234,30 @@
         }
         .card-container::-webkit-scrollbar { display: none; }
         
-        /* 卡片主體 - 改為白色 */
         .rich-card {
             min-width: 210px; max-width: 220px; 
-            background-color: var(--card-bg-white); /* 白色背景 */
+            background-color: var(--card-bg-white);
             border-radius: 10px; overflow: hidden; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 較明顯的陰影 */
-            border: 1px solid #4B5563; /* 邊框 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid #4B5563;
             flex-shrink: 0; height: fit-content;
         }
-        /* 卡片圖片區 - 改為淺藍色單色 */
         .card-image {
             width: 100%; height: 100px; display: flex; align-items: center; justify-content: center;
-            background-color: #E0F2FE; /* 淺藍色 */
-            color: var(--chat-primary); /* 圖示顏色 */
-            font-size: 2.5em;
+            background-color: #E0F2FE; color: var(--chat-primary); font-size: 2.5em;
         }
-        /* 卡片標題 - 深色文字 */
         .card-title {
-            padding: 10px; color: var(--chat-text-dark); /* 深色字 */
-            font-weight: bold; text-align: center;
-            border-bottom: 1px solid var(--card-border-light); 
-            background-color: var(--card-bg-white);
+            padding: 10px; color: var(--chat-text-dark); font-weight: bold; text-align: center;
+            border-bottom: 1px solid var(--card-border-light); background-color: var(--card-bg-white);
         }
-        /* 卡片按鈕 - 深色文字 */
         .card-btn {
             display: block; width: 100%; padding: 12px 15px; background: none; border: none;
             border-bottom: 1px solid var(--card-border-light); 
-            color: var(--chat-text-dark); /* 深色字 */
-            cursor: pointer;
+            color: var(--chat-text-dark); cursor: pointer;
             text-align: left; line-height: 1.4; font-size: 0.9em; transition: background 0.2s;
         }
         .card-btn:last-child { border-bottom: none; }
-        .card-btn:hover { 
-            background-color: var(--card-hover-bg); /* 淺藍 Hover */
-            color: var(--chat-primary); 
-        }
+        .card-btn:hover { background-color: var(--card-hover-bg); color: var(--chat-primary); }
         
         .scroll-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -249,10 +266,8 @@
         }
         .scroll-btn.left { left: 0; } .scroll-btn.right { right: 0; }
 
-        /* --- Quick Chips (Dark Theme) --- */
         .quick-menu-area { 
-            padding: 10px 15px; 
-            background-color: var(--chat-dark-bg); 
+            padding: 10px 15px; background-color: var(--chat-dark-bg); 
             border-top: 1px solid rgba(255,255,255,0.1); 
         }
         .quick-chips-container { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
@@ -263,7 +278,6 @@
         }
         .quick-chip:hover { background-color: var(--chat-primary); color: #fff; }
 
-        /* --- Input & Language --- */
         .input-toolbar { background-color: var(--chat-dark-bg); padding: 0 15px 15px 15px; }
         .language-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 0.85em; color: var(--chat-text-dim); }
         .lang-select {
@@ -295,6 +309,7 @@
                 <div>
                     <a href="#dashboard">AI 儀表板</a>
                     <a href="#matrix">優勢矩陣</a>
+                    <a href="#about">關於我們</a>
                     <a href="#contact">聯絡洽詢</a>
                 </div>
             </nav>
@@ -406,6 +421,25 @@
         </div>
     </section>
 
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>關於我們</h2>
+            <p>
+                我們是一群致力於用 AI 技術解決「金融排斥」問題的創新團隊
+                <br>
+                透過獨家的替代數據模型，協助非傳統金融機構看見移工的真實信用價值
+                <br>
+		幫助B端夥伴拓展藍海市場
+            </p>
+            
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div>🎥 團隊介紹影片 (請在程式碼中替換 iframe)</div>
+                </div>
+                </div>
+        </div>
+    </section>
+
     <section class="contact-cta-section" id="contact">
         <div class="container">
             <h2>準備好啟動您的新營收曲線了嗎？</h2>
@@ -418,7 +452,7 @@
 
     <footer>
         <div class="container">
-            <p>MCMAI | 專注移工金融科技創新</p>
+            <p>MIGRANT MASTER_AI | 專注移工金融科技創新</p>
             <p>Email: s310751030@gm.ntpu.edu.tw</p>
         </div>
     </footer>
@@ -809,11 +843,7 @@
             }
         }
 
-        // ----------------------------------------------------
-        // ★★★ 這裡就是解決多語言回答錯誤的關鍵邏輯 ★★★
-        // ----------------------------------------------------
         function getLanguageInstruction(lang) {
-            // 根據語系回傳給 AI 的「秘密指令」
             switch(lang) {
                 case 'zh-TW': return " (請用繁體中文回答)";
                 case 'vi': return " (Please answer in Vietnamese)";
@@ -828,13 +858,11 @@
             // ⚠️ 請確認您的 Ngrok 網址是否正確
             const API_URL = "https://rainbowy-rumpless-ashley.ngrok-free.dev/rag-chat";
             
-            // ★★★ 在這裡將使用者問題加上強制指令 ★★★
             const prompt = msg + getLanguageInstruction(currentLang);
 
             try {
                 const res = await fetch(API_URL, {
                     method: 'POST', headers: {'Content-Type': 'application/json'},
-                    // 這裡傳送的是加上指令後的 prompt
                     body: JSON.stringify({ question: prompt, language: currentLang })
                 });
                 const data = await res.json();
@@ -857,4 +885,3 @@
     </script>
 </body>
 </html>
-
