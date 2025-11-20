@@ -298,6 +298,73 @@
 
         .message.typing { color: var(--chat-text-dim); font-style: italic; border:none; box-shadow:none; background:none;}
         .citations { display: none; }
+		/* =========================================
+           ★★★ 手機版 / 窄螢幕 強制修正 (RWD Fixes) ★★★
+           請將此段放在 CSS 的最後面，確保權重最高
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            
+            /* 1. 導航列：Logo 與連結垂直排列 */
+            nav {
+                flex-direction: column;
+                align-items: center !important;
+                gap: 15px;
+            }
+            nav div:last-child {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+            nav a { margin-left: 0; margin: 0 8px; font-size: 0.9em; }
+
+            /* 2. 英雄區 (Hero)：字體縮小，避免撐爆螢幕 */
+            .hero { padding: 60px 0 40px; }
+            .hero h1 { font-size: 3em; line-height: 1.2; }
+            .hero .subtitle { font-size: 1.3em; line-height: 1.4; }
+            .hero p { font-size: 1em; padding: 0 15px; }
+            
+            /* 3. 按鈕：手機版按鈕寬度佔滿，比較好按 */
+            .cta-button {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 1.1em;
+            }
+
+            /* 4. 儀表板與矩陣：強制變為單欄 (由上往下排) */
+            .dashboard-grid, 
+            .matrix-grid,
+            .about-container {
+                grid-template-columns: 1fr !important; /* 強制單欄 */
+                gap: 20px;
+            }
+            
+            /* 5. 聊天室視窗：調整寬度適應手機 */
+            .chat-widget-window {
+                width: 92%; /* 不設固定 380px，改用百分比 */
+                right: 4%;  /* 左右置中 */
+                left: 4%;
+                bottom: 85px; /* 避開右下角按鈕 */
+                height: 70vh; /* 高度設為螢幕的 70% */
+            }
+            
+            /* 6. 調整右下角聊天按鈕位置，避免擋到內容 */
+            .chat-widget-trigger {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+            }
+
+            /* 7. 關於我們影片區塊微調 */
+            .about-section { padding: 50px 0; }
+            .about-section h2 { font-size: 2em; }
+            
+            /* 8. 卡片內容微調 */
+            .module-card { min-height: auto; } /* 取消最小高度限制 */
+            .mwcs-score { font-size: 4em; margin-top: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -890,5 +957,6 @@
     </script>
 </body>
 </html>
+
 
 
