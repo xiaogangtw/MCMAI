@@ -6,7 +6,7 @@
     <title>MCMAI</title>
     <style>
         /* =========================================
-           1. Dashboard 樣式
+           1. Dashboard 樣式 (淺色系 / SaaS 風格)
            ========================================= */
         :root {
             /* --- Dashboard 原有變數 --- */
@@ -22,13 +22,13 @@
             --color-status-warning: #FBBF24; 
             --color-status-danger: #EF4444; 
 
-            /* --- Chat Widget 專用變數 --- */
+            /* --- Chat Widget 專用變數 (方案 B：深色質感風格) --- */
             --chat-dark-bg: #111827;       /* Header/Footer 背景 */
             --chat-card-bg: #1F2937;       /* 視窗主體背景 */
             --chat-primary: #3B82F6;       /* 強調色 (科技藍) */
             
-            --chat-text-light: #F9FAFB;    /* 主要文字 */
-            --chat-text-dark: #1F2937;     /* 深色文字 (白底用) */
+            --chat-text-light: #F9FAFB;    /* 主要文字 (白/淺灰) */
+            --chat-text-dark: #1F2937;     /* 深色文字 (用於白底卡片) */
             --chat-text-dim: #9CA3AF;      /* 次要文字 */
             
             --chat-bot-bubble: #374151;    /* 機器人氣泡 */
@@ -56,7 +56,7 @@
             padding: 20px 0;
             border-bottom: 1px solid var(--color-border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 1000; /* 讓導航列固定在頂部 */
+            position: sticky; top: 0; z-index: 1000;
         }
         .logo { color: var(--color-primary); font-size: 2em; font-weight: 700; }
         nav a { color: var(--color-text-mid); text-decoration: none; margin-left: 30px; transition: color 0.3s; }
@@ -120,10 +120,10 @@
         .matrix-item h4 { color: var(--color-primary); margin-bottom: 10px; font-weight: 600; }
         .matrix-item p { font-size: 1em; color: var(--color-text-mid); }
 
-        /* --- [NEW] About Us Section (含影片) --- */
+        /* --- [NEW] About Us Section (含影片與團隊) --- */
         .about-section {
             padding: 100px 0;
-            background-color: #FFFFFF; /* 白底，區隔上下區塊 */
+            background-color: #FFFFFF;
             text-align: center;
             border-top: 1px solid var(--color-border);
         }
@@ -137,24 +137,108 @@
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 900px; /* 影片最大寬度 */
+            max-width: 900px;
             margin: 0 auto;
-            padding-bottom: 56.25%; /* 16:9 比例 (9/16 = 0.5625) */
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* 漂亮的陰影 */
-            background-color: #000; /* 影片載入前的底色 */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background-color: #000;
         }
         .video-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
-        /* 影片佔位符 (Placeholder) - 僅供 Demo 顯示 */
-        .video-placeholder {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: #fff; font-size: 1.5em;
+
+        /* --- Team Section (宗師殿堂) --- */
+        .team-wrapper {
+            margin-top: 80px;
+            text-align: center;
+        }
+        .team-title {
+            font-size: 2em;
+            color: var(--color-text-dark);
+            margin-bottom: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        .team-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 兩欄並排 */
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            border-color: var(--color-primary);
+        }
+
+        .member-avatar-box {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .member-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--color-light-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .member-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--color-text-dark);
+            margin-bottom: 5px;
+        }
+
+        .member-title {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .member-desc {
+            color: var(--color-text-mid);
+            font-size: 1em;
+            line-height: 1.6;
         }
 
         /* --- Footer --- */
@@ -163,19 +247,8 @@
         .contact-cta-section p { font-size: 1.3em; color: var(--color-text-mid); max-width: 900px; margin: 0 auto 30px auto; }
         footer { background-color: var(--color-text-dark); color: var(--color-light-bg); padding: 30px 0; margin-top: 50px; text-align: center; font-size: 0.9em; }
 
-        /* --- RWD --- */
-        @media (max-width: 992px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .matrix-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero h1 { font-size: 3.5em; }
-        }
-        @media (max-width: 768px) {
-            nav { flex-direction: column; align-items: flex-start !important; }
-            .matrix-grid { grid-template-columns: 1fr; }
-        }
-
         /* =========================================
-           2. Chat Widget 樣式
+           2. Chat Widget 樣式 (深色背景 + 白色卡片)
            ========================================= */
         .chat-widget-trigger {
             position: fixed; bottom: 30px; right: 30px;
@@ -227,6 +300,7 @@
             margin-right: auto; border-bottom-left-radius: 2px;
         }
 
+        /* 白色卡片樣式 */
         .carousel-wrapper { position: relative; margin-bottom: 15px; width: 100%; }
         .card-container {
             display: flex; gap: 12px; overflow-x: auto; padding: 5px;
@@ -236,7 +310,7 @@
         
         .rich-card {
             min-width: 210px; max-width: 220px; 
-            background-color: var(--card-bg-white);
+            background-color: var(--card-bg-white); /* 白底 */
             border-radius: 10px; overflow: hidden; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border: 1px solid #4B5563;
@@ -247,13 +321,15 @@
             background-color: #E0F2FE; color: var(--chat-primary); font-size: 2.5em;
         }
         .card-title {
-            padding: 10px; color: var(--chat-text-dark); font-weight: bold; text-align: center;
+            padding: 10px; color: var(--chat-text-dark); /* 深色字 */
+            font-weight: bold; text-align: center;
             border-bottom: 1px solid var(--card-border-light); background-color: var(--card-bg-white);
         }
         .card-btn {
             display: block; width: 100%; padding: 12px 15px; background: none; border: none;
             border-bottom: 1px solid var(--card-border-light); 
-            color: var(--chat-text-dark); cursor: pointer;
+            color: var(--chat-text-dark); /* 深色字 */
+            cursor: pointer;
             text-align: left; line-height: 1.4; font-size: 0.9em; transition: background 0.2s;
         }
         .card-btn:last-child { border-bottom: none; }
@@ -298,12 +374,11 @@
 
         .message.typing { color: var(--chat-text-dim); font-style: italic; border:none; box-shadow:none; background:none;}
         .citations { display: none; }
-		/* =========================================
+
+        /* =========================================
            ★★★ 手機版 / 窄螢幕 (RWD Fixes) ★★★
            ========================================= */
         @media screen and (max-width: 768px) {
-            
-            /* 1. 導航列：Logo 與連結垂直排列 */
             nav {
                 flex-direction: column;
                 align-items: center !important;
@@ -318,50 +393,31 @@
             }
             nav a { margin-left: 0; margin: 0 8px; font-size: 0.9em; }
 
-            /* 2. 英雄區 (Hero)：字體縮小，避免撐爆螢幕 */
             .hero { padding: 60px 0 40px; }
             .hero h1 { font-size: 3em; line-height: 1.2; }
             .hero .subtitle { font-size: 1.3em; line-height: 1.4; }
             .hero p { font-size: 1em; padding: 0 15px; }
             
-            /* 3. 按鈕：手機版按鈕寬度佔滿，比較好按 */
-            .cta-button {
-                width: 100%;
-                padding: 12px 20px;
-                font-size: 1.1em;
-            }
+            .cta-button { width: 100%; padding: 12px 20px; font-size: 1.1em; }
 
-            /* 4. 儀表板與矩陣：強制變為單欄 (由上往下排) */
+            /* 強制變為單欄 */
             .dashboard-grid, 
             .matrix-grid,
-            .about-container {
-                grid-template-columns: 1fr !important; /* 強制單欄 */
+            .team-grid {
+                grid-template-columns: 1fr !important;
                 gap: 20px;
             }
             
-            /* 5. 聊天室視窗：調整寬度適應手機 */
             .chat-widget-window {
-                width: 92%; /* 不設固定 380px，改用百分比 */
-                right: 4%;  /* 左右置中 */
-                left: 4%;
-                bottom: 85px; /* 避開右下角按鈕 */
-                height: 70vh; /* 高度設為螢幕的 70% */
+                width: 92%; right: 4%; left: 4%; bottom: 85px; height: 70vh;
             }
             
-            /* 6. 調整右下角聊天按鈕位置，避免擋到內容 */
-            .chat-widget-trigger {
-                bottom: 20px;
-                right: 20px;
-                width: 55px;
-                height: 55px;
-            }
+            .chat-widget-trigger { bottom: 20px; right: 20px; width: 55px; height: 55px; }
 
-            /* 7. 關於我們影片區塊微調 */
             .about-section { padding: 50px 0; }
             .about-section h2 { font-size: 2em; }
             
-            /* 8. 卡片內容微調 */
-            .module-card { min-height: auto; } /* 取消最小高度限制 */
+            .module-card { min-height: auto; }
             .mwcs-score { font-size: 4em; margin-top: 15px; }
         }
     </style>
@@ -495,19 +551,51 @@
                 <br>
                 透過獨家的替代數據模型，協助非傳統金融機構看見移工的真實信用價值
                 <br>
-		幫助B端夥伴拓展藍海市場
+                幫助B端夥伴拓展藍海市場
             </p>
             
             <div class="video-container">
                 <iframe 
-       		  width="560" 
-        	  height="315" 
-        	  src="https://www.youtube.com/embed/Qn9vKM_2hAA" 
-        	  title="MCMAI 團隊介紹" 
-        	  frameborder="0" 
-        	  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        	 allowfullscreen>
-		</iframe>
+                  width="560" 
+                  height="315" 
+                  src="https://www.youtube.com/embed/Qn9vKM_2hAA" 
+                  title="MCMAI 團隊介紹" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="team-wrapper">
+                <div class="team-title">宗師殿堂</div>
+                
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./huang.png" alt="黃聖剛" class="member-avatar">
+                        </div>
+                        <div class="member-name">黃聖剛</div>
+                        <div class="member-title">首席信貸宗師 | 數據煉金掌門</div>
+                        <p class="member-desc">
+                            打破傳統徵信的高牆，以數據為劍，為移工開闢金融新視界。
+                            專注於替代數據模型架構與商業策略落地。
+                        </p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./li.png" alt="李光翔" class="member-avatar">
+                        </div>
+                        <div class="member-name">李光翔</div>
+                        <div class="member-title">AI 佈道大師 | 風控總護法</div>
+                        <p class="member-desc">
+                            建構絕對防禦的風控護盾，將 AI 智慧注入每一筆交易決策。
+                            負責機器學習算法優化與即時推論引擎開發。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -530,7 +618,7 @@
 
     <div class="chat-widget-window" id="chatWindow">
         <div class="chat-header">
-            <span id="uiHeaderTitle">AI借貸智慧客服</span>
+            <span id="uiHeaderTitle">AI 信貸智慧客服</span>
             <button class="close-btn" id="closeBtn">&times;</button>
         </div>
         
@@ -621,7 +709,7 @@
         // ----------------------------------------------------
         const i18nData = {
             "zh-TW": {
-                header: "AI借貸智慧客服",
+                header: "AI 金融客服 (RAG)",
                 placeholder: "輸入您的問題...",
                 send: "傳送",
                 welcome: "您好！我是移貸宗師 AI 助理。請問有什麼能幫您的？",
@@ -956,7 +1044,3 @@
     </script>
 </body>
 </html>
-
-
-
-
