@@ -6,7 +6,7 @@
     <title>MCMAI</title>
     <style>
         /* =========================================
-           1. Dashboard 樣式 (淺色系 / SaaS 風格)
+           1. Dashboard 樣式
            ========================================= */
         :root {
             /* --- Dashboard 原有變數 --- */
@@ -22,13 +22,13 @@
             --color-status-warning: #FBBF24; 
             --color-status-danger: #EF4444; 
 
-            /* --- Chat Widget 專用變數 (方案 B：深色質感風格) --- */
+            /* --- Chat Widget 專用變數 --- */
             --chat-dark-bg: #111827;       /* Header/Footer 背景 */
             --chat-card-bg: #1F2937;       /* 視窗主體背景 */
             --chat-primary: #3B82F6;       /* 強調色 (科技藍) */
             
-            --chat-text-light: #F9FAFB;    /* 主要文字 (白/淺灰) */
-            --chat-text-dark: #1F2937;     /* 深色文字 (用於白底卡片) */
+            --chat-text-light: #F9FAFB;    /* 主要文字 */
+            --chat-text-dark: #1F2937;     /* 深色文字 (白底用) */
             --chat-text-dim: #9CA3AF;      /* 次要文字 */
             
             --chat-bot-bubble: #374151;    /* 機器人氣泡 */
@@ -53,12 +53,20 @@
         /* --- Dashboard Header --- */
         header {
             background-color: var(--color-card-bg);
-            padding: 20px 0;
+            padding: 15px 0;
             border-bottom: 1px solid var(--color-border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             position: sticky; top: 0; z-index: 1000;
         }
-        .logo { color: var(--color-primary); font-size: 2em; font-weight: 700; }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px; 
+            width: auto;
+            display: block;
+        }
         nav a { color: var(--color-text-mid); text-decoration: none; margin-left: 30px; transition: color 0.3s; }
         nav a:hover { color: var(--color-primary); }
 
@@ -120,7 +128,7 @@
         .matrix-item h4 { color: var(--color-primary); margin-bottom: 10px; font-weight: 600; }
         .matrix-item p { font-size: 1em; color: var(--color-text-mid); }
 
-        /* --- [NEW] About Us Section (含影片與團隊) --- */
+        /* --- About Us & Video Section --- */
         .about-section {
             padding: 100px 0;
             background-color: #FFFFFF;
@@ -133,7 +141,6 @@
         .about-section p {
             font-size: 1.2em; color: var(--color-text-mid); max-width: 800px; margin: 0 auto 40px auto; line-height: 1.8;
         }
-        /* 影片響應式容器 */
         .video-container {
             position: relative;
             width: 100%;
@@ -248,7 +255,7 @@
         footer { background-color: var(--color-text-dark); color: var(--color-light-bg); padding: 30px 0; margin-top: 50px; text-align: center; font-size: 0.9em; }
 
         /* =========================================
-           2. Chat Widget 樣式 (深色背景 + 白色卡片)
+           2. Chat Widget 樣式
            ========================================= */
         .chat-widget-trigger {
             position: fixed; bottom: 30px; right: 30px;
@@ -300,7 +307,6 @@
             margin-right: auto; border-bottom-left-radius: 2px;
         }
 
-        /* 白色卡片樣式 */
         .carousel-wrapper { position: relative; margin-bottom: 15px; width: 100%; }
         .card-container {
             display: flex; gap: 12px; overflow-x: auto; padding: 5px;
@@ -310,7 +316,7 @@
         
         .rich-card {
             min-width: 210px; max-width: 220px; 
-            background-color: var(--card-bg-white); /* 白底 */
+            background-color: var(--card-bg-white);
             border-radius: 10px; overflow: hidden; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border: 1px solid #4B5563;
@@ -321,15 +327,13 @@
             background-color: #E0F2FE; color: var(--chat-primary); font-size: 2.5em;
         }
         .card-title {
-            padding: 10px; color: var(--chat-text-dark); /* 深色字 */
-            font-weight: bold; text-align: center;
+            padding: 10px; color: var(--chat-text-dark); font-weight: bold; text-align: center;
             border-bottom: 1px solid var(--card-border-light); background-color: var(--card-bg-white);
         }
         .card-btn {
             display: block; width: 100%; padding: 12px 15px; background: none; border: none;
             border-bottom: 1px solid var(--card-border-light); 
-            color: var(--chat-text-dark); /* 深色字 */
-            cursor: pointer;
+            color: var(--chat-text-dark); cursor: pointer;
             text-align: left; line-height: 1.4; font-size: 0.9em; transition: background 0.2s;
         }
         .card-btn:last-child { border-bottom: none; }
@@ -392,6 +396,7 @@
                 margin-top: 10px;
             }
             nav a { margin-left: 0; margin: 0 8px; font-size: 0.9em; }
+            .logo img { height: 40px; }
 
             .hero { padding: 60px 0 40px; }
             .hero h1 { font-size: 3em; line-height: 1.2; }
@@ -427,7 +432,9 @@
     <header>
         <div class="container">
             <nav style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="logo">MIGRANT CREDIT MASTER AI</div>
+                <div class="logo">
+                    <img src="MCMAI.png" alt="MCMAI Logo">
+                </div>
                 <div>
                     <a href="#dashboard">AI 儀表板</a>
                     <a href="#matrix">優勢矩陣</a>
@@ -609,14 +616,14 @@
 
     <footer>
         <div class="container">
-            <p>MCMAI | 專注移工金融科技創新</p>
+            <p>MIGRANT MASTER_AI | 專注移工金融科技創新</p>
             <p>Email: s310751030@gm.ntpu.edu.tw</p>
         </div>
     </footer>
 
     <div class="chat-widget-window" id="chatWindow">
         <div class="chat-header">
-            <span id="uiHeaderTitle">AI 信貸智慧客服</span>
+            <span id="uiHeaderTitle">AI借貸智慧客服</span>
             <button class="close-btn" id="closeBtn">&times;</button>
         </div>
         
@@ -707,7 +714,7 @@
         // ----------------------------------------------------
         const i18nData = {
             "zh-TW": {
-                header: "AI 智慧借貸客服",
+                header: "AI借貸智慧客服",
                 placeholder: "輸入您的問題...",
                 send: "傳送",
                 welcome: "您好！我是移貸宗師 AI 助理。請問有什麼能幫您的？",
@@ -1042,6 +1049,3 @@
     </script>
 </body>
 </html>
-
-
-
