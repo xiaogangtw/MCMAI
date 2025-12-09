@@ -94,7 +94,7 @@
             box-shadow: 0 6px 10px rgba(0,0,0,0.15);
         }
 
-        /* --- Application Form Section (新功能) --- */
+        /* --- Application Form Section --- */
         .app-form-section {
             background-color: #FFFFFF;
             padding: 40px;
@@ -112,11 +112,11 @@
         }
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--color-text-dark); }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%; padding: 12px; border: 1px solid var(--color-border); border-radius: 8px;
-            font-size: 1em; transition: border-color 0.3s;
+            font-size: 1em; transition: border-color 0.3s; font-family: inherit;
         }
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none; border-color: var(--color-primary);
         }
         
@@ -396,6 +396,17 @@
                     <label for="inputAmount">預計貸款金額 (NTD)</label>
                     <input type="number" id="inputAmount" placeholder="例如: 50000" step="1000">
                 </div>
+                
+                <div class="form-group">
+                    <label for="inputTerm">貸款期數 (月) / Term</label>
+                    <select id="inputTerm">
+                        <option value="6">6 期 (Months)</option>
+                        <option value="12" selected>12 期 (Months)</option>
+                        <option value="24">24 期 (Months)</option>
+                        <option value="36">36 期 (Months)</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="inputReason">貸款用途 / Reason</label>
                     <select id="inputReason">
@@ -404,7 +415,13 @@
                         <option value="education">教育進修 (Education)</option>
                         <option value="business">小額創業 (Small Business)</option>
                         <option value="travel">返鄉旅費 (Travel)</option>
+                        <option value="other">其他 (Other)</option>
                     </select>
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label for="inputDetail">貸款原因詳細說明 / Detailed Reason</label>
+                    <textarea id="inputDetail" rows="2" placeholder="請詳細說明資金用途... (例如: 家中屋頂修繕急需)"></textarea>
                 </div>
 
                 <div class="bank-connect-box">
@@ -622,9 +639,11 @@
             setTimeout(() => {
                 isBankConnected = true;
                 btn.classList.add('connected');
-                text.textContent = "已完成帳戶連動 (模擬麻布記帳)";
+                // 修改：移除括號備註
+                text.textContent = "已完成帳戶連動";
                 icon.textContent = "✅";
-                status.textContent = "已成功讀取：薪轉紀錄 (12個月)、電信費繳款、日常消費明細";
+                // 修改：增加更多詳細內容
+                status.textContent = "已成功讀取：薪轉紀錄 (12個月)、電信費繳款歷史、日常消費明細、跨境匯款規律、居留證效期...";
                 status.style.color = "var(--color-status-success)";
                 
                 // 啟用推論按鈕
@@ -638,7 +657,10 @@
             const name = document.getElementById('inputName').value || "申請人";
             const job = document.getElementById('inputJob').value || "未知職業";
             const amount = document.getElementById('inputAmount').value;
-            const reason = document.getElementById('inputReason').options[document.getElementById('inputReason').selectedIndex].text;
+            const term = document.getElementById('inputTerm').value; // 取得期數
+            const reasonSelect = document.getElementById('inputReason');
+            const reason = reasonSelect.options[reasonSelect.selectedIndex].text;
+            const detail = document.getElementById('inputDetail').value || "無詳細說明"; // 取得詳細說明
 
             // UI 狀態：處理中
             const runBtn = document.getElementById('btnRunInference');
@@ -681,11 +703,13 @@
 
                 mwcsElement.style.color = scoreColor;
 
-                // 生成總結報告
+                // 生成總結報告 (整合新欄位)
                 const report = `
                     <strong>【AI 徵信審核結果】</strong><br>
                     申請人：${name} (${job})<br>
-                    申請金額：NTD ${amount ? amount : '未填寫'} (用途：${reason})<br>
+                    申請方案：NTD ${amount ? amount : '未填寫'} (分 ${term} 期)<br>
+                    資金用途：${reason}<br>
+                    詳細說明：<span style="color:var(--color-text-mid);">${detail}</span><br>
                     --------------------------------------------------<br>
                     經 AI 分析其 12 個月替代數據(薪轉/消費/電信費)，MWCS 評分為 <strong>${mwcsScore}</strong> 分。<br>
                     PFCF 模型計算其每月真實自由現金流約為 NTD ${pfcValue.toLocaleString()}，足以覆蓋本筆貸款之月付金。<br>
