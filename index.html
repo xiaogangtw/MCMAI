@@ -13,8 +13,8 @@
             --color-bg-white: #FFFFFF;
             --color-primary: #3B82F6;       /* 主色藍 */
             --color-primary-dark: #1D4ED8;
-            --color-secondary: #10B981;     /* 輔色綠 (用於強調成功/安全) */
-            --color-accent: #8B5CF6;        /* 強調色紫 (用於區分第二產品) */
+            --color-secondary: #10B981;     /* 輔色綠 */
+            --color-accent: #8B5CF6;        /* 強調色紫 */
             
             --text-main: #1F2937;
             --text-sub: #6B7280;
@@ -51,26 +51,34 @@
             font-size: 1.2em; color: var(--text-sub); max-width: 700px; margin-bottom: 30px;
         }
 
-        /* --- Header --- */
+        /* --- Header (使用原始 Logo 設定) --- */
         header { background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .logo img { height: 45px; width: auto; }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 50px; width: auto; display: block; } /* 原始 Logo 大小 */
+        
         .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-sub); font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--color-primary); }
 
         /* --- Hero --- */
         .hero { padding: 80px 0; text-align: center; background: linear-gradient(to bottom, #EFF6FF, #F9FAFB); }
-        .hero h1 { font-size: 3.5em; font-weight: 900; color: #111827; margin-bottom: 20px; letter-spacing: -1px; }
+        .market-count-label { font-size: 1.2em; font-weight: 600; color: var(--text-sub); margin-bottom: 5px; }
+        .market-count-val { font-size: 4.5em; font-weight: 900; color: var(--color-primary); line-height: 1.1; margin-bottom: 20px; }
+        
+        .hero h1 { font-size: 2.5em; font-weight: 800; color: #111827; margin-bottom: 20px; }
         .hero p { font-size: 1.25em; color: var(--text-sub); max-width: 800px; margin: 0 auto 40px; }
-        .hero-stats { 
-            display: inline-flex; gap: 40px; background: #fff; padding: 15px 30px; 
-            border-radius: 50px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color);
+        
+        .cta-button {
+            background-color: var(--color-primary); color: #fff;
+            padding: 15px 40px; font-size: 1.2em; font-weight: bold;
+            border: none; border-radius: 8px; cursor: pointer; text-decoration: none;
+            transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: inline-block;
         }
-        .stat-item strong { display: block; font-size: 1.5em; color: var(--color-primary); line-height: 1; }
-        .stat-item span { font-size: 0.9em; color: var(--text-sub); }
+        .cta-button:hover { background-color: var(--color-primary-dark); transform: translateY(-2px); }
 
         /* =========================================
-           PRODUCT 1: AI 風控引擎 (Risk Engine)
+           PRODUCT 1: AI 風控引擎
            ========================================= */
         .product-section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
         .bg-white { background-color: #fff; }
@@ -83,7 +91,7 @@
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95em; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1em;
+            width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1em; font-family: inherit;
         }
         .full-width { grid-column: 1 / -1; }
         
@@ -121,18 +129,18 @@
             grid-column: 1 / -1; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 20px;
             border-radius: 12px; text-align: left; display: none;
         }
+        .report-label { font-weight: bold; color: #4B5563; }
+        .report-value { color: #111827; }
 
         /* =========================================
-           PRODUCT 2: 多語言智能客服 (CS Engine)
+           PRODUCT 2: 多語言智能客服
            ========================================= */
         .cs-layout { display: flex; gap: 50px; align-items: center; }
         .cs-content { flex: 1; }
         .cs-visual { flex: 1; position: relative; }
 
         .feature-list { list-style: none; margin: 30px 0; }
-        .feature-list li {
-            display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;
-        }
+        .feature-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
         .check-icon { 
             background: #EDE9FE; color: #5B21B6; width: 24px; height: 24px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;
@@ -161,7 +169,53 @@
         .btn-try-chat:hover { background: #7C3AED; transform: translateY(-2px); }
 
         /* =========================================
-           Chat Widget Overlay (原本的 Chatbot)
+           About & Team (保留原始樣式)
+           ========================================= */
+        .about-content-wrapper { text-align: center; }
+        .video-container {
+            position: relative; width: 100%; max-width: 900px; margin: 0 auto 60px;
+            padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #000;
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .team-title {
+            font-size: 2em; color: var(--text-main); margin-bottom: 40px;
+            font-weight: 700; letter-spacing: 2px; position: relative; display: inline-block;
+        }
+        .team-title::after {
+            content: ''; display: block; width: 60px; height: 4px; background-color: var(--color-primary);
+            margin: 10px auto 0; border-radius: 2px;
+        }
+        
+        .team-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .team-card {
+            background: #FFFFFF; border-radius: 20px; padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color); position: relative; overflow: hidden;
+        }
+        .team-card:hover {
+            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            border-color: var(--color-primary);
+        }
+        .member-avatar-box { width: 150px; height: 150px; margin: 0 auto 25px; }
+        .member-avatar {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+            border: 4px solid var(--color-bg-light); box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .member-name { font-size: 1.8em; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+        .member-title {
+            color: var(--color-primary); font-weight: 700; font-size: 0.95em; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 20px; background: rgba(59, 130, 246, 0.1);
+            display: inline-block; padding: 5px 15px; border-radius: 20px;
+        }
+        .member-desc { color: var(--text-sub); font-size: 1em; line-height: 1.6; }
+
+        /* =========================================
+           Chat Widget Overlay
            ========================================= */
         .chat-widget-window {
             position: fixed; bottom: 90px; right: 30px; width: 380px; height: 600px; max-height: 80vh;
@@ -178,17 +232,19 @@
         .msg.bot { background: #4B5563; color: #fff; align-self: flex-start; }
         .msg.user { background: var(--color-primary); color: #fff; margin-left: auto; }
         
-        /* 隱藏的Trigger (改由第二區塊按鈕觸發) */
-        .chat-trigger-hidden { display: none; } 
         .close-chat { cursor: pointer; font-size: 1.5em; background: none; border: none; color: #9CA3AF; }
 
         /* RWD */
         @media (max-width: 768px) {
+            nav { height: auto; flex-direction: column; padding: 15px 0; }
+            .nav-links { margin-top: 15px; }
+            .nav-links a { margin: 0 10px; }
             .hero h1 { font-size: 2.5em; }
+            .market-count-val { font-size: 3em; }
             .form-grid { grid-template-columns: 1fr; }
             .risk-dashboard { grid-template-columns: 1fr; }
             .cs-layout { flex-direction: column; }
-            .phone-mockup { width: 100%; max-width: 300px; height: 500px; }
+            .team-grid { grid-template-columns: 1fr; }
             .chat-widget-window { width: 90%; right: 5%; bottom: 20px; }
         }
     </style>
@@ -199,12 +255,12 @@
     <div class="container">
         <nav>
             <div class="logo">
-                <h2 style="color: var(--color-primary); font-weight:900;">MCMAI.</h2>
+                <img src="MCMAI.png" alt="MCMAI Logo">
             </div>
             <div class="nav-links">
                 <a href="#product-risk">AI 風控引擎</a>
                 <a href="#product-cs">智能客服系統</a>
-                <a href="#about">團隊介紹</a>
+                <a href="#about">關於我們</a>
             </div>
         </nav>
     </div>
@@ -212,12 +268,13 @@
 
 <section class="hero">
     <div class="container">
-        <div class="hero-stats">
-            <div class="stat-item"><strong>85.8 萬</strong><span>在台移工總數</span></div>
-            <div class="stat-item" style="border-left: 1px solid #E5E7EB; padding-left: 40px;"><strong>7%</strong><span>勞動力佔比</span></div>
-        </div>
-        <h1 style="margin-top: 30px;">移工金融的雙核心引擎</h1>
+        <div class="market-count-label">截止目前全台外籍移工總人數</div>
+        <div id="marketCount" class="market-count-val">858,939</div>
+        
+        <h1 style="margin-top: 20px;">移工金融的雙核心引擎</h1>
         <p>我們提供「精準風控模型」與「多語言溝通系統」，協助 B 端企業安全、高效地開發移工藍海市場。</p>
+        
+        <a href="#product-risk" class="cta-button">探索解決方案</a>
     </div>
 </section>
 
@@ -225,7 +282,7 @@
     <div class="container">
         <span class="section-tag tag-risk">Product 01</span>
         <h2 class="section-title">AI 智能風控 API</h2>
-        <p class="section-desc">不依賴傳統聯徵，透過替代數據聚合 (Open Banking) 與 AI 模型，精準預測移工還款能力與信用評分。</p>
+        <p class="section-desc">不依賴傳統聯徵，透過替代數據聚合 (Open Banking) 與 AI 模型，精準預測移工還款能力 (PFCF) 與信用評分 (MWCS)。</p>
 
         <div class="risk-simulation-container">
             <h4 style="margin-bottom: 20px; color: var(--text-main);">Step 1: 申請人資料模擬 (API Input)</h4>
@@ -240,27 +297,31 @@
                 </div>
                 <div class="form-group">
                     <label>預貸金額 (NTD)</label>
-                    <input type="number" id="inputAmount" placeholder="50000">
+                    <input type="number" id="inputAmount" placeholder="50000" step="1000">
                 </div>
                 <div class="form-group">
                     <label>貸款期數</label>
                     <select id="inputTerm">
-                        <option value="12">12 期</option>
-                        <option value="24">24 期</option>
+                        <option value="6">6 期 (Months)</option>
+                        <option value="12" selected>12 期 (Months)</option>
+                        <option value="24">24 期 (Months)</option>
+                        <option value="36">36 期 (Months)</option>
                     </select>
                 </div>
                 <div class="form-group full-width">
                     <label>資金用途</label>
                     <select id="inputReason">
-                        <option>家庭急用匯款</option>
-                        <option>購買交通工具</option>
-                        <option>醫療支出</option>
-                        <option>其他</option>
+                        <option value="family">家庭急用匯款</option>
+                        <option value="transport">購買交通工具 (機車/電動車)</option>
+                        <option value="medical">醫療支出</option>
+                        <option value="education">教育進修</option>
+                        <option value="travel">返鄉旅費</option>
+                        <option value="other">其他 (Other)</option>
                     </select>
                 </div>
                 <div class="form-group full-width">
                     <label>詳細說明</label>
-                    <textarea id="inputDetail" rows="2" placeholder="請輸入詳細原因..."></textarea>
+                    <textarea id="inputDetail" rows="2" placeholder="請詳細說明資金用途... (例如: 家中屋頂修繕急需)"></textarea>
                 </div>
                 
                 <div class="full-width" style="margin-top: 10px;">
@@ -282,7 +343,7 @@
             <div class="risk-card" style="border-top: 4px solid var(--color-primary);">
                 <h3>MWCS 移工信用評分</h3>
                 <div id="mwcsScore" class="score-val">--</div>
-                <p style="color: var(--text-sub); margin-top: 10px;">違約機率預測模型</p>
+                <p style="color: var(--text-sub); margin-top: 10px;">違約機率預測模型 (0-100)</p>
             </div>
             <div class="risk-card" style="border-top: 4px solid var(--color-secondary);">
                 <h3>PFCF 真實還款能力</h3>
@@ -291,8 +352,8 @@
             </div>
             
             <div id="summaryBox" class="summary-report">
-                <h4 style="color: var(--text-main); margin-bottom: 10px;">📝 AI 審核總結報告</h4>
-                <div id="summaryText" style="font-size: 0.95em; color: #4B5563;"></div>
+                <h4 style="color: var(--text-main); margin-bottom: 10px;">📝 AI 風控總審核報告 (Auto-Generated)</h4>
+                <div id="summaryText" style="font-size: 0.95em; color: #4B5563; line-height: 1.7;"></div>
             </div>
         </div>
     </div>
@@ -363,22 +424,60 @@
 </section>
 
 <section id="about" class="product-section">
-    <div class="container" style="text-align: center;">
-        <h2 class="section-title">關於移貸宗師</h2>
-        <p class="section-desc" style="margin: 0 auto;">我們是一群致力於用 AI 技術解決「金融排斥」問題的創新團隊，協助夥伴拓展藍海市場。</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
-            <div style="padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                <img src="./huang.png" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-                <h3>黃聖剛</h3><p style="color: var(--color-primary);">CEO</p>
+    <div class="container">
+        <div class="about-content-wrapper">
+            <h2 class="section-title">關於移貸宗師</h2>
+            <p class="section-desc" style="margin: 0 auto 40px;">我們是一群致力於用 AI 技術解決「金融排斥」問題的創新團隊，協助夥伴拓展藍海市場。</p>
+            
+            <div class="video-container">
+                <iframe 
+                  width="560" 
+                  height="315" 
+                  src="https://www.youtube.com/embed/Qn9vKM_2hAA" 
+                  title="MCMAI 團隊介紹" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowfullscreen>
+                </iframe>
             </div>
-            <div style="padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                <img src="./livingroom.png" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-                <h3>李旻儒</h3><p style="color: var(--color-primary);">CTO</p>
-            </div>
-            <div style="padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                <img src="./yixuan.png" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-                <h3>陳逸軒</h3><p style="color: var(--color-primary);">CPO</p>
+
+            <div class="team-wrapper">
+                <div class="team-title">宗師殿堂</div>
+                
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./huang.png" alt="黃聖剛" class="member-avatar">
+                        </div>
+                        <div class="member-name">黃聖剛</div>
+                        <div class="member-title">CEO | 執行長</div>
+                        <p class="member-desc">
+                            擘畫「移貸宗師」商業版圖，於金融市場中，運用替代數據開闢普惠金融的藍海。
+                        </p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./livingroom.png" alt="李旻儒" class="member-avatar">
+                        </div>
+                        <div class="member-name">李旻儒</div>
+                        <div class="member-title">CTO | 技術長</div>
+                        <p class="member-desc">
+                            負責本計畫之 AI 信用評估模型建置、PFCF(自由現金流量)運算邏輯、替代資料分析機制。
+                        </p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./yixuan.png" alt="陳逸軒" class="member-avatar">
+                        </div>
+                        <div class="member-name">陳逸軒</div>
+                        <div class="member-title">CPO | 產品長</div>
+                        <p class="member-desc">
+                            負責市場需求分析、使用者流程設計與 B2B 合作模式規劃，優化跨文化介面體驗。
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -409,13 +508,30 @@
             </select>
         </div>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="chatInput" placeholder="輸入問題..." style="flex:1; padding:8px; border-radius:4px; border:none;">
+            <input type="text" id="chatInput" placeholder="輸入問題..." style="flex:1; padding:8px; border-radius:4px; border:none; color: white;">
             <button onclick="handleSend()" style="background:var(--color-primary); color:#fff; border:none; padding:0 15px; border-radius:4px; cursor:pointer;">Send</button>
         </div>
     </div>
 </div>
 
 <script>
+    /* ===========================
+       Feature: Market Counter Animation
+       =========================== */
+    function animateMarketCount(targetValue) {
+        const element = document.getElementById('marketCount');
+        let startValue = 0; const duration = 2000; const startTime = performance.now();
+        function updateCount(currentTime) {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const currentValue = Math.floor(startValue + progress * (targetValue - startValue));
+            element.textContent = currentValue.toLocaleString();
+            if (progress < 1) requestAnimationFrame(updateCount);
+            else element.textContent = targetValue.toLocaleString();
+        }
+        requestAnimationFrame(updateCount);
+    }
+
     /* ===========================
        Product 1: Risk Engine Logic
        =========================== */
@@ -440,7 +556,8 @@
             btn.style.opacity = "1";
             bankText.innerText = "已完成帳戶連動";
             bankIcon.innerText = "✅";
-            status.innerText = "成功讀取：薪轉紀錄 (12個月)、跨境匯款規律、居留證效期檢查...";
+            // Updated text
+            status.innerText = "已成功讀取：薪轉紀錄 (12個月)、跨境匯款規律、居留證效期檢查、日常消費明細...";
             
             // Enable Next Step
             document.getElementById('btnRunInference').disabled = false;
@@ -452,37 +569,83 @@
         const btn = document.getElementById('btnRunInference');
         const summaryBox = document.getElementById('summaryBox');
         
+        // Get Inputs
+        const name = document.getElementById('inputName').value || "申請人";
+        const job = document.getElementById('inputJob').value || "未知職業";
+        const amount = parseInt(document.getElementById('inputAmount').value) || 0;
+        const term = parseInt(document.getElementById('inputTerm').value);
+        const reasonSelect = document.getElementById('inputReason');
+        const reason = reasonSelect.options[reasonSelect.selectedIndex].text;
+        const detail = document.getElementById('inputDetail').value || "無詳細說明";
+
+        // Validate Amount
+        if(amount <= 0) {
+            alert("請輸入有效的貸款金額");
+            return;
+        }
+
         btn.disabled = true;
         btn.innerText = "AI 模型運算中...";
+        document.getElementById('mwcsScore').innerText = "...";
+        document.getElementById('pfcValue').innerText = "...";
         
         setTimeout(() => {
-            // Random Logic
-            const score = Math.floor(Math.random() * (95 - 65) + 65);
-            const cashFlow = Math.floor(Math.random() * (18000 - 8000) + 8000);
+            // 1. Generate Random Logic
+            const mwcsScore = Math.floor(Math.random() * (95 - 50) + 50); // Random Score 50-95
+            const pfcValue = Math.floor(Math.random() * (22000 - 8000) + 8000); // Random PFCF 8k-22k
+            
+            // 2. Calculate Monthly Payment
+            const monthlyPayment = Math.ceil(amount / term);
+
+            // 3. Logic: Compare Payment vs PFCF
+            const affordable = monthlyPayment <= pfcValue;
+
+            // 4. Determine Conclusion & Interest Rate based on MWCS
+            let rate = "";
+            let conclusion = "";
+            let scoreColor = "";
+
+            if (!affordable) {
+                // REJECT due to Capacity (PFCF)
+                scoreColor = "#EF4444"; // Red
+                rate = "N/A";
+                conclusion = `<strong style='color:#EF4444'>建議婉拒 (Capacity Issue)</strong>。<br>申請金額分期後月付金 (NT$${monthlyPayment.toLocaleString()}) 超過其 PFCF (NT$${pfcValue.toLocaleString()})，還款壓力過大。建議降低額度至 NT$${(pfcValue * term).toLocaleString()} 以內。`;
+            } else {
+                // Capacity is OK, check Credit Score
+                if (mwcsScore >= 80) {
+                    scoreColor = "#10B981"; // Green
+                    rate = "8% (優質利率)";
+                    conclusion = `<strong style='color:#10B981'>強烈建議核准 (High Approval)</strong>。<br>客戶信用評分優異且現金流充裕。建議提供優惠利率。`;
+                } else if (mwcsScore >= 60) {
+                    scoreColor = "#F59E0B"; // Orange
+                    rate = "12% (標準利率)";
+                    conclusion = `<strong style='color:#F59E0B'>建議核准 (Standard)</strong>。<br>風險屬標準範圍，建議適用標準利率方案。`;
+                } else {
+                    scoreColor = "#EF4444"; // Red
+                    rate = "18% (高風險)";
+                    conclusion = `<strong style='color:#EF4444'>高風險案件 (High Risk)</strong>。<br>雖然現金流足夠，但匯款規律或行為特徵顯示違約風險高。建議人工複審或婉拒。`;
+                }
+            }
             
             // UI Update
-            document.getElementById('mwcsScore').innerText = score;
-            document.getElementById('mwcsScore').style.color = score >= 80 ? '#10B981' : (score >= 70 ? '#F59E0B' : '#EF4444');
+            document.getElementById('mwcsScore').innerText = mwcsScore;
+            document.getElementById('mwcsScore').style.color = scoreColor;
             
-            document.getElementById('pfcValue').innerText = cashFlow.toLocaleString();
+            document.getElementById('pfcValue').innerText = pfcValue.toLocaleString();
             
-            // Summary
-            const name = document.getElementById('inputName').value || "申請人";
-            const term = document.getElementById('inputTerm').value;
-            const reason = document.getElementById('inputReason').value;
-            const detail = document.getElementById('inputDetail').value || "無";
-            
-            let conclusion = "";
-            if(score >= 80) conclusion = "<strong style='color:#10B981'>強烈建議核准</strong>。客戶現金流穩健，匯款規律良好。";
-            else if(score >= 70) conclusion = "<strong style='color:#F59E0B'>建議核准</strong>。風險屬標準範圍。";
-            else conclusion = "<strong style='color:#EF4444'>高風險案件</strong>。建議人工複審。";
-
+            // Generate HTML Report
             document.getElementById('summaryText').innerHTML = `
-                申請人：${name}<br>
-                申請方案：${term} 期 (用途：${reason})<br>
-                詳細說明：${detail}<br>
-                -----------------------------------<br>
-                <strong>最終結論：${conclusion}</strong>
+                <span class="report-label">申請人：</span><span class="report-value">${name} (${job})</span><br>
+                <span class="report-label">申請方案：</span><span class="report-value">NT$${amount.toLocaleString()} / 分 ${term} 期</span><br>
+                <span class="report-label">試算月付金：</span><span class="report-value">NT$${monthlyPayment.toLocaleString()}</span><br>
+                <span class="report-label">資金用途：</span><span class="report-value">${reason}</span> <span style="font-size:0.8em; color:#6B7280;">(${detail})</span><br>
+                <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
+                <span class="report-label">AI 評估結果：</span><br>
+                • <strong>PFCF 真實自由現金流：</strong> NT$${pfcValue.toLocaleString()} / 月<br>
+                • <strong>MWCS 信用評分：</strong> ${mwcsScore} 分<br>
+                • <strong>建議利率：</strong> ${rate}<br>
+                <br>
+                <strong>最終結論：</strong><br>${conclusion}
             `;
             
             dashboard.classList.add('active');
@@ -590,6 +753,11 @@
         }
         container.scrollTop = container.scrollHeight;
     }
+
+    // Initialize Market Count on Load
+    window.onload = function() {
+        animateMarketCount(858939); 
+    };
 </script>
 
 </body>
