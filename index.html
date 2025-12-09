@@ -183,10 +183,13 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 兩欄並排 */
+            /* 修改處：改為 3 欄位以容納三人 */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 40px;
-            max-width: 900px;
+            /* 修改處：放寬最大寬度以容納三張卡片 */
+            max-width: 1200px; 
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .team-card {
@@ -590,14 +593,26 @@
 
                     <div class="team-card">
                         <div class="member-avatar-box">
-                            <img src="./li.png" alt="李光翔" class="member-avatar">
+                            <img src="./livingroom.png" alt="李旻儒" class="member-avatar">
                         </div>
-                        <div class="member-name">李光翔</div>
-                        <div class="member-title">COO | 營運長</div>
+                        <div class="member-name">李旻儒</div>
+                        <div class="member-title">CTO | 技術長</div>
                         <p class="member-desc">
-                            嚴守金融法規底線，確保每一筆交易皆符合監管要求，穩固門派基石。
+                            負責本計畫之 AI 信用評估模型建置、PFCF(自由現金流量)運算邏輯、替代資料分析機制。
                         </p>
                     </div>
+
+                    <div class="team-card">
+                        <div class="member-avatar-box">
+                            <img src="./yixuan.png" alt="陳逸軒" class="member-avatar">
+                        </div>
+                        <div class="member-name">陳逸軒</div>
+                        <div class="member-title">CPO | 產品長</div>
+                        <p class="member-desc">
+                            負責市場需求分析、使用者流程設計與 B2B 合作模式規劃，優化跨文化介面體驗。
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
@@ -1049,5 +1064,3 @@
     </script>
 </body>
 </html>
-
-
