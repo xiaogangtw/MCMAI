@@ -15,6 +15,7 @@
             --color-primary-dark: #1D4ED8;
             --color-secondary: #10B981;     /* 輔色綠 */
             --color-accent: #8B5CF6;        /* 強調色紫 */
+            --color-danger: #EF4444;        /* 危險紅 */
             
             --text-main: #1F2937;
             --text-sub: #6B7280;
@@ -51,11 +52,11 @@
             font-size: 1.2em; color: var(--text-sub); max-width: 700px; margin-bottom: 30px;
         }
 
-        /* --- Header (使用原始 Logo 設定) --- */
+        /* --- Header --- */
         header { background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { display: flex; align-items: center; }
-        .logo img { height: 50px; width: auto; display: block; }
+        .logo { display: flex; align-items: center; font-weight: 900; font-size: 1.5em; color: var(--color-primary); }
+        .logo span { color: var(--text-main); margin-left: 5px; }
         
         .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-sub); font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--color-primary); }
@@ -103,6 +104,32 @@
         .bank-connect-btn:hover { background: #E5E7EB; border-color: #6B7280; }
         .bank-connect-btn.connected { background: #ECFDF5; border: 2px solid #10B981; color: #065F46; cursor: default; }
 
+        /* --- 特徵工程展示區塊 (New) --- */
+        .feature-extraction-panel {
+            display: none; /* Initial hidden */
+            margin-top: 20px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;
+        }
+        .feature-card {
+            background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px;
+            font-size: 0.9em; display: flex; align-items: start; gap: 10px;
+            transition: 0.3s; opacity: 0.5; /* Initial dimmed */
+        }
+        .feature-card.scanning { border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); opacity: 1; }
+        .feature-card.done { border-color: var(--color-secondary); opacity: 1; }
+        .feature-icon { font-size: 1.2em; }
+        .feature-content h5 { font-size: 0.95em; font-weight: 700; margin-bottom: 2px; color: #1E293B; }
+        .feature-content p { font-size: 0.8em; color: #64748B; line-height: 1.3; }
+
         .action-btn {
             background: var(--color-primary); color: #fff; border: none; padding: 14px 28px;
             font-size: 1.1em; font-weight: 700; border-radius: 8px; cursor: pointer;
@@ -126,11 +153,16 @@
         .pfcf-val { font-size: 2.5em; font-weight: 800; color: var(--text-main); }
         
         .summary-report {
-            grid-column: 1 / -1; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 20px;
+            grid-column: 1 / -1; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 25px;
             border-radius: 12px; text-align: left; display: none;
         }
         .report-label { font-weight: bold; color: #4B5563; }
         .report-value { color: #111827; }
+        .feature-tag {
+            display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 5px; margin-bottom: 5px;
+        }
+        .ft-good { background: #D1FAE5; color: #065F46; border: 1px solid #10B981; }
+        .ft-warn { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; }
 
         /* =========================================
            PRODUCT 2: 多語言智能客服
@@ -226,7 +258,6 @@
         .chat-widget-window.active { transform: translateY(0); opacity: 1; visibility: visible; }
         .chat-header { background: #111827; padding: 15px; color: #fff; display: flex; justify-content: space-between; border-radius: 16px 16px 0 0; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #374151; }
-        .chat-input-area { padding: 15px; background: #111827; border-radius: 0 0 16px 16px; }
         
         .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 0.9em; max-width: 85%; }
         .msg.bot { background: #4B5563; color: #fff; align-self: flex-start; }
@@ -241,7 +272,7 @@
             .nav-links a { margin: 0 10px; }
             .hero h1 { font-size: 2.5em; }
             .market-count-val { font-size: 3em; }
-            .form-grid { grid-template-columns: 1fr; }
+            .form-grid, .feature-grid { grid-template-columns: 1fr; }
             .risk-dashboard { grid-template-columns: 1fr; }
             .cs-layout { flex-direction: column; }
             .team-grid { grid-template-columns: 1fr; }
@@ -255,7 +286,7 @@
     <div class="container">
         <nav>
             <div class="logo">
-                <img src="MCMAI.png" alt="MCMAI Logo">
+                MCMAI<span>移貸宗師</span>
             </div>
             <div class="nav-links">
                 <a href="#product-risk">AI 風控引擎</a>
@@ -282,7 +313,7 @@
     <div class="container">
         <span class="section-tag tag-risk">Product 01</span>
         <h2 class="section-title">AI 智能風控 API</h2>
-        <p class="section-desc">不依賴傳統聯徵，透過替代數據聚合 (Open Banking) 與 AI 模型，精準預測移工還款能力 (PFCF) 與信用評分 (MWCS)。</p>
+        <p class="section-desc">透過 Open Banking 聚合「六大替代數據」，並透過特徵工程精準運算，解決傳統聯徵無法覆蓋的信用隱形痛點。</p>
 
         <div class="risk-simulation-container">
             <h4 style="margin-bottom: 20px; color: var(--text-main);">Step 1: 申請人資料模擬 (API Input)</h4>
@@ -328,7 +359,57 @@
                     <button id="btnConnectBank" class="bank-connect-btn" onclick="simulateBankConnection()">
                         <span id="bankIcon">🔗</span> <span id="bankText">同意授權並連結銀行帳戶 (Open Banking)</span>
                     </button>
-                    <div id="bankStatus" style="margin-top: 8px; font-size: 0.9em; color: var(--color-secondary); font-weight: bold; min-height: 20px;"></div>
+                </div>
+            </div>
+
+            <div id="featurePanel" class="feature-extraction-panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <h4 style="color:var(--text-main);">📊 AI 特徵工程：多源異質資料擷取中...</h4>
+                    <span id="scanPercent" style="font-weight:bold; color:var(--color-primary);">0%</span>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card" id="feat-1">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-content">
+                            <h5>帳戶行為特徵</h5>
+                            <p>薪資轉帳規律性、月底餘額波動、現金流穩定度</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" id="feat-2">
+                        <div class="feature-icon">🌏</div>
+                        <div class="feature-content">
+                            <h5>匯款資料特徵</h5>
+                            <p>匯款頻率(週/月)、匯款金額趨勢、對象數量</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" id="feat-3">
+                        <div class="feature-icon">🛒</div>
+                        <div class="feature-content">
+                            <h5>簽帳卡消費分析</h5>
+                            <p>必要支出辨識(電信/房租)、衝動型消費比例</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" id="feat-4">
+                        <div class="feature-icon">🧾</div>
+                        <div class="feature-content">
+                            <h5>民間借貸足跡</h5>
+                            <p>既有負債清償紀律、是否有多頭借貸行為</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" id="feat-5">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-content">
+                            <h5>社群語意分析</h5>
+                            <p>NLP情緒分析、生活穩定度訊號、潛在風險偵測</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" id="feat-6">
+                        <div class="feature-icon">🪪</div>
+                        <div class="feature-content">
+                            <h5>身份與法遵</h5>
+                            <p>居留證(ARC)效期查核、工作合約存續狀態</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -352,7 +433,10 @@
             </div>
             
             <div id="summaryBox" class="summary-report">
-                <h4 style="color: var(--text-main); margin-bottom: 10px;">📝 AI 風控總審核報告 (Auto-Generated)</h4>
+                <h4 style="color: var(--text-main); margin-bottom: 15px; display:flex; align-items:center;">
+                    📝 AI 風控總審核報告 
+                    <span style="font-size:0.7em; background:#E5E7EB; padding:2px 8px; border-radius:10px; margin-left:10px;">Auto-Generated</span>
+                </h4>
                 <div id="summaryText" style="font-size: 0.95em; color: #4B5563; line-height: 1.7;"></div>
             </div>
         </div>
@@ -533,7 +617,7 @@
     }
 
     /* ===========================
-       Product 1: Risk Engine Logic
+       Product 1: Risk Engine Logic (Updated for Feature Engineering)
        =========================== */
     let isConnected = false;
     
@@ -541,27 +625,62 @@
         if(isConnected) return;
         
         const btn = document.getElementById('btnConnectBank');
-        const status = document.getElementById('bankStatus');
         const bankText = document.getElementById('bankText');
         const bankIcon = document.getElementById('bankIcon');
+        const featurePanel = document.getElementById('featurePanel');
+        const scanPercent = document.getElementById('scanPercent');
         
-        // Loading state
+        // 1. UI Change: Connecting
         btn.style.opacity = "0.7";
-        bankText.innerText = "正在安全連線至銀行 API...";
+        bankText.innerText = "建立安全通道中... (Open Banking API)";
         bankIcon.innerText = "⏳";
         
-        setTimeout(() => {
-            isConnected = true;
-            btn.classList.add('connected');
-            btn.style.opacity = "1";
-            bankText.innerText = "已完成帳戶連動";
-            bankIcon.innerText = "✅";
-            // Updated text
-            status.innerText = "已成功讀取：薪轉紀錄 (12個月)、跨境匯款規律、居留證效期檢查、日常消費明細...";
+        // Show Feature Panel
+        featurePanel.style.display = 'block';
+        
+        // 2. Simulate Scanning Process (Feature Engineering)
+        let percent = 0;
+        const interval = setInterval(() => {
+            percent += 5;
+            scanPercent.innerText = percent + "%";
             
-            // Enable Next Step
-            document.getElementById('btnRunInference').disabled = false;
-        }, 1500);
+            // Highlight cards based on progress
+            if(percent > 10) highlightCard('feat-1'); // Bank
+            if(percent > 30) highlightCard('feat-2'); // Remittance
+            if(percent > 50) highlightCard('feat-3'); // Consumption
+            if(percent > 70) highlightCard('feat-4'); // Private Lending
+            if(percent > 85) highlightCard('feat-5'); // Social
+            if(percent > 95) highlightCard('feat-6'); // Compliance
+
+            if(percent >= 100) {
+                clearInterval(interval);
+                finishConnection(btn, bankText, bankIcon);
+            }
+        }, 150);
+    }
+
+    function highlightCard(id) {
+        const card = document.getElementById(id);
+        if(!card.classList.contains('scanning')) {
+            card.classList.add('scanning');
+        }
+    }
+
+    function finishConnection(btn, bankText, bankIcon) {
+        isConnected = true;
+        btn.classList.add('connected');
+        btn.style.opacity = "1";
+        bankText.innerText = "已完成多源異質資料特徵提取";
+        bankIcon.innerText = "✅";
+        
+        // Mark all cards as done
+        document.querySelectorAll('.feature-card').forEach(c => {
+            c.classList.remove('scanning');
+            c.classList.add('done');
+        });
+
+        // Enable Next Step
+        document.getElementById('btnRunInference').disabled = false;
     }
 
     function runInference() {
@@ -578,74 +697,70 @@
         const reason = reasonSelect.options[reasonSelect.selectedIndex].text;
         const detail = document.getElementById('inputDetail').value || "無詳細說明";
 
-        // Validate Amount
-        if(amount <= 0) {
-            alert("請輸入有效的貸款金額");
-            return;
-        }
+        if(amount <= 0) { alert("請輸入有效的貸款金額"); return; }
 
         btn.disabled = true;
-        btn.innerText = "AI 模型運算中...";
+        btn.innerText = "AI 模型運算中 (LightGBM + RNN)...";
         document.getElementById('mwcsScore').innerText = "...";
         document.getElementById('pfcValue').innerText = "...";
         
         setTimeout(() => {
-            // 1. Generate Random Logic
-            const mwcsScore = Math.floor(Math.random() * (95 - 50) + 50); // Random Score 50-95
-            const pfcValue = Math.floor(Math.random() * (22000 - 8000) + 8000); // Random PFCF 8k-22k
-            
-            // 2. Calculate Monthly Payment
+            // 1. Generate Result Logic
+            const mwcsScore = Math.floor(Math.random() * (92 - 65) + 65); 
+            const pfcValue = Math.floor(Math.random() * (22000 - 12000) + 12000);
             const monthlyPayment = Math.ceil(amount / term);
-
-            // 3. Logic: Compare Payment vs PFCF
             const affordable = monthlyPayment <= pfcValue;
 
-            // 4. Determine Conclusion & Interest Rate based on MWCS
             let rate = "";
             let conclusion = "";
             let scoreColor = "";
+            
+            // Generate Dynamic Feature Comments
+            const featureComments = [
+                `<span class="feature-tag ft-good">匯款特徵</span> 過去12個月匯款頻率穩定 (Weekly)，無中斷紀錄`,
+                `<span class="feature-tag ft-good">消費特徵</span> 必要生活支出佔比 45%，無博弈或異常大額消費`,
+                `<span class="feature-tag ft-warn">社群特徵</span> 近期社群貼文情緒平穩，但地點變動較頻繁`
+            ];
 
             if (!affordable) {
-                // REJECT due to Capacity (PFCF)
-                scoreColor = "#EF4444"; // Red
+                scoreColor = "#EF4444"; 
                 rate = "N/A";
-                conclusion = `<strong style='color:#EF4444'>建議婉拒 (Capacity Issue)</strong>。<br>申請金額分期後月付金 (NT$${monthlyPayment.toLocaleString()}) 超過其 PFCF (NT$${pfcValue.toLocaleString()})，還款壓力過大。建議降低額度至 NT$${(pfcValue * term).toLocaleString()} 以內。`;
+                conclusion = `<strong style='color:#EF4444'>建議婉拒 (Capacity Issue)</strong>。<br>申請金額分期後月付金 (NT$${monthlyPayment.toLocaleString()}) 超過其 PFCF，還款壓力過大。`;
             } else {
-                // Capacity is OK, check Credit Score
                 if (mwcsScore >= 80) {
-                    scoreColor = "#10B981"; // Green
+                    scoreColor = "#10B981"; 
                     rate = "8% (優質利率)";
-                    conclusion = `<strong style='color:#10B981'>強烈建議核准 (High Approval)</strong>。<br>客戶信用評分優異且現金流充裕。建議提供優惠利率。`;
-                } else if (mwcsScore >= 60) {
-                    scoreColor = "#F59E0B"; // Orange
+                    conclusion = `<strong style='color:#10B981'>建議核准 (High Approval)</strong>。<br>PFCF 現金流充裕，且匯款規律性高，違約風險極低。`;
+                } else {
+                    scoreColor = "#F59E0B"; 
                     rate = "12% (標準利率)";
                     conclusion = `<strong style='color:#F59E0B'>建議核准 (Standard)</strong>。<br>風險屬標準範圍，建議適用標準利率方案。`;
-                } else {
-                    scoreColor = "#EF4444"; // Red
-                    rate = "18% (高風險)";
-                    conclusion = `<strong style='color:#EF4444'>高風險案件 (High Risk)</strong>。<br>雖然現金流足夠，但匯款規律或行為特徵顯示違約風險高。建議人工複審或婉拒。`;
                 }
             }
             
             // UI Update
             document.getElementById('mwcsScore').innerText = mwcsScore;
             document.getElementById('mwcsScore').style.color = scoreColor;
-            
             document.getElementById('pfcValue').innerText = pfcValue.toLocaleString();
             
-            // Generate HTML Report
+            // Update Summary Report with Features
             document.getElementById('summaryText').innerHTML = `
-                <span class="report-label">申請人：</span><span class="report-value">${name} (${job})</span><br>
-                <span class="report-label">申請方案：</span><span class="report-value">NT$${amount.toLocaleString()} / 分 ${term} 期</span><br>
-                <span class="report-label">試算月付金：</span><span class="report-value">NT$${monthlyPayment.toLocaleString()}</span><br>
-                <span class="report-label">資金用途：</span><span class="report-value">${reason}</span> <span style="font-size:0.8em; color:#6B7280;">(${detail})</span><br>
+                <div style="margin-bottom:10px;">
+                    <span class="report-label">申請人：</span>${name} (${job})<br>
+                    <span class="report-label">申請方案：</span>NT$${amount.toLocaleString()} / ${term} 期<br>
+                </div>
                 <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
-                <span class="report-label">AI 評估結果：</span><br>
-                • <strong>PFCF 真實自由現金流：</strong> NT$${pfcValue.toLocaleString()} / 月<br>
-                • <strong>MWCS 信用評分：</strong> ${mwcsScore} 分<br>
-                • <strong>建議利率：</strong> ${rate}<br>
-                <br>
-                <strong>最終結論：</strong><br>${conclusion}
+                <div style="margin-bottom:10px;">
+                    <strong>🔍 特徵工程分析摘要：</strong><br>
+                    ${featureComments.join('<br>')}
+                </div>
+                <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
+                <div style="background:#F3F4F6; padding:10px; border-radius:8px;">
+                    <span class="report-label">PFCF 真實自由現金流：</span> <strong>NT$${pfcValue.toLocaleString()} / 月</strong><br>
+                    <span class="report-label">MWCS 信用評分：</span> <strong>${mwcsScore} 分</strong><br>
+                    <span class="report-label">建議利率：</span> ${rate}<br>
+                    <div style="margin-top:5px;">${conclusion}</div>
+                </div>
             `;
             
             dashboard.classList.add('active');
@@ -653,15 +768,13 @@
             
             btn.disabled = false;
             btn.innerText = "重新執行推論";
-            
-            // Scroll slightly
             dashboard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        }, 2000);
+        }, 2500);
     }
 
     /* ===========================
-       Product 2: Chat Logic
+       Product 2: Chat Logic (Original)
        =========================== */
     const i18n = {
         "zh-TW": { welcome: "您好，我是移貸宗師的智能客服。請問您想詢問關於貸款、還款或帳戶的問題嗎？", chips: ["如何申請貸款?", "利率是多少?", "查詢餘額"] },
@@ -690,7 +803,6 @@
         
         container.innerHTML = `<div class="msg bot">${data.welcome}</div>`;
         
-        // Chips
         chipsDiv.innerHTML = "";
         data.chips.forEach(q => {
             const btn = document.createElement('button');
@@ -707,7 +819,6 @@
         });
     }
 
-    // Language Switcher Listener
     document.getElementById('langSelect').addEventListener('change', (e) => {
         currentLang = e.target.value;
         refreshChatUI();
@@ -724,18 +835,15 @@
 
     async function sendMsg(txt) {
         const container = document.getElementById('messagesContainer');
-        // User Msg
         container.innerHTML += `<div class="msg user">${txt}</div>`;
         container.scrollTop = container.scrollHeight;
 
-        // Simulate Bot Typing
         const typingDiv = document.createElement('div');
         typingDiv.className = "msg bot";
         typingDiv.innerText = "...";
         container.appendChild(typingDiv);
         container.scrollTop = container.scrollHeight;
 
-        // API Call
         try {
             const API_URL = "https://rainbowy-rumpless-ashley.ngrok-free.dev/rag-chat";
             const res = await fetch(API_URL, {
@@ -747,7 +855,6 @@
                 })
             });
             const data = await res.json();
-            
             typingDiv.innerText = data.answer || "Sorry, connection error.";
         } catch(e) {
             typingDiv.innerText = "Network Error (Demo Mode)";
@@ -755,7 +862,6 @@
         container.scrollTop = container.scrollHeight;
     }
 
-    // Initialize Market Count on Load
     window.onload = function() {
         animateMarketCount(858939); 
     };
