@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCMAI - 移貸宗師 | 雙核心金融科技解方</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* =========================================
            1. 核心變數 & 基礎設定
@@ -89,13 +90,33 @@
             background: #fff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color); padding: 40px; margin-top: 30px;
         }
+        .form-section-title {
+            grid-column: 1 / -1; font-size: 1.1em; font-weight: 700; color: #374151; 
+            margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #F3F4F6;
+            display: flex; align-items: center; gap: 8px;
+        }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95em; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95em; color: #4B5563; }
+        .required { color: var(--color-danger); margin-left: 3px; }
+        
         .form-group input, .form-group select, .form-group textarea {
             width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1em; font-family: inherit;
+            transition: 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--color-primary); ring: 2px var(--color-primary);
         }
         .full-width { grid-column: 1 / -1; }
         
+        /* 檔案上傳區塊 */
+        .upload-box {
+            border: 2px dashed #D1D5DB; border-radius: 8px; padding: 30px; text-align: center;
+            background: #F9FAFB; cursor: pointer; transition: 0.3s;
+        }
+        .upload-box:hover { border-color: var(--color-primary); background: #EFF6FF; }
+        .upload-icon { color: #9CA3AF; margin-bottom: 10px; }
+        
+        /* 銀行連結按鈕 */
         .bank-connect-btn {
             width: 100%; padding: 15px; background: #F3F4F6; border: 2px dashed #9CA3AF; 
             border-radius: 8px; font-weight: 600; color: #4B5563; cursor: pointer; transition: 0.3s;
@@ -103,6 +124,7 @@
         }
         .bank-connect-btn:hover { background: #E5E7EB; border-color: #6B7280; }
         .bank-connect-btn.connected { background: #ECFDF5; border: 2px solid #10B981; color: #065F46; cursor: default; }
+        .bank-connect-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 
         /* --- 特徵工程展示區塊 (New) --- */
         .feature-extraction-panel {
@@ -154,7 +176,7 @@
         
         .summary-report {
             grid-column: 1 / -1; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 25px;
-            border-radius: 12px; text-align: left; display: none;
+            border-radius: 12px; text-align: left;
         }
         .report-label { font-weight: bold; color: #4B5563; }
         .report-value { color: #111827; }
@@ -163,6 +185,22 @@
         }
         .ft-good { background: #D1FAE5; color: #065F46; border: 1px solid #10B981; }
         .ft-warn { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; }
+
+        /* 資金用途表格 (New) */
+        .funds-table-container {
+            grid-column: 1 / -1; margin-top: 20px; display: none; /* Initially hidden */
+            background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .funds-table-header {
+            background: #ECFDF5; color: #065F46; padding: 15px 20px; font-weight: 700; 
+            border-bottom: 1px solid #D1FAE5; display: flex; align-items: center; gap: 8px;
+        }
+        .custom-table { width: 100%; border-collapse: collapse; }
+        .custom-table th, .custom-table td { padding: 15px; text-align: left; border-bottom: 1px solid #F3F4F6; }
+        .custom-table th { color: #6B7280; font-size: 0.9em; font-weight: 600; background: #F9FAFB; }
+        .custom-table td { color: #374151; font-size: 0.95em; }
+        .money-text { font-family: 'Courier New', monospace; font-weight: 700; color: #10B981; }
 
         /* =========================================
            PRODUCT 2: 多語言智能客服
@@ -316,16 +354,54 @@
         <p class="section-desc">透過 Open Banking 聚合「六大替代數據」，並透過特徵工程精準運算，解決傳統聯徵無法覆蓋的信用隱形痛點。</p>
 
         <div class="risk-simulation-container">
-            <h4 style="margin-bottom: 20px; color: var(--text-main);">Step 1: 申請人資料模擬 (API Input)</h4>
+            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料模擬 (API Input)</h4>
+            <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9em;">請填寫完整的個人資訊以進行審核，標示 <span class="required">*</span> 為必填欄位。</p>
+            
             <div class="form-grid">
+                
+                <div class="form-section-title">
+                    <i data-lucide="user"></i> 基本聯絡資訊
+                </div>
+                
                 <div class="form-group">
-                    <label>申請人姓名</label>
-                    <input type="text" id="inputName" placeholder="Nguyen Van A">
+                    <label>真實姓名 <span class="required">*</span></label>
+                    <input type="text" id="inputName" placeholder="請輸入本名" required>
                 </div>
                 <div class="form-group">
-                    <label>職業類型</label>
+                    <label>行動電話 <span class="required">*</span></label>
+                    <input type="tel" id="inputPhone" placeholder="09xx-xxx-xxx" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>常用電子信箱 (Email) <span class="required">*</span></label>
+                    <input type="email" id="inputEmail" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-section-title">
+                    <i data-lucide="shield-alert"></i> 緊急聯絡人資訊 (必填)
+                </div>
+
+                <div class="form-group">
+                    <label>緊急聯絡人姓名 <span class="required">*</span></label>
+                    <input type="text" id="inputEmergencyName" required>
+                </div>
+                <div class="form-group">
+                    <label>緊急聯絡人電話 <span class="required">*</span></label>
+                    <input type="tel" id="inputEmergencyPhone" required>
+                </div>
+
+                <div class="form-section-title">
+                    <i data-lucide="dollar-sign"></i> 財務狀況與貸款需求
+                </div>
+
+                <div class="form-group">
+                    <label>目前職業 / 職稱 <span class="required">*</span></label>
                     <input type="text" id="inputJob" placeholder="製造業 / 電子廠">
                 </div>
+                <div class="form-group">
+                    <label>年收入 (TWD) <span class="required">*</span></label>
+                    <input type="number" id="inputIncome" placeholder="例如：800000">
+                </div>
+
                 <div class="form-group">
                     <label>預貸金額 (NTD)</label>
                     <input type="number" id="inputAmount" placeholder="50000" step="1000">
@@ -340,24 +416,45 @@
                     </select>
                 </div>
                 <div class="form-group full-width">
-                    <label>資金用途</label>
+                    <label>資金用途分類</label>
                     <select id="inputReason">
-                        <option value="family">家庭急用匯款</option>
+                        <option value="family">家庭急用匯款 (週轉)</option>
                         <option value="transport">購買交通工具 (機車/電動車)</option>
                         <option value="medical">醫療支出</option>
                         <option value="education">教育進修</option>
-                        <option value="travel">返鄉旅費</option>
-                        <option value="other">其他 (Other)</option>
+                        <option value="equipment">設備採購 (營運)</option>
+                        <option value="marketing">行銷推廣</option>
                     </select>
                 </div>
                 <div class="form-group full-width">
-                    <label>詳細說明</label>
-                    <textarea id="inputDetail" rows="2" placeholder="請詳細說明資金用途... (例如: 家中屋頂修繕急需)"></textarea>
+                    <label>詳細用途說明</label>
+                    <textarea id="inputDetail" rows="2" placeholder="請詳細說明資金用途..."></textarea>
+                </div>
+
+                <div class="form-section-title">
+                    <i data-lucide="upload"></i> 實名認證文件
+                </div>
+                <div class="full-width">
+                    <label style="display:block; font-weight:600; margin-bottom:8px; color:#4B5563;">
+                        護照或居留證上傳 <span class="required">*</span>
+                    </label>
+                    <div class="upload-box" id="uploadArea">
+                        <i data-lucide="image" class="upload-icon" style="width: 40px; height: 40px; margin: 0 auto 10px; display: block;"></i>
+                        <p style="color: var(--color-primary); font-weight: 600;">點擊上傳文件</p>
+                        <p style="font-size: 0.8em; color: var(--text-sub);">支援 PNG, JPG, PDF (Max 10MB)</p>
+                        <input type="file" id="fileInput" style="display: none;">
+                        <p id="fileName" style="font-size: 0.9em; color: var(--color-secondary); margin-top: 10px; font-weight: bold;"></p>
+                    </div>
                 </div>
                 
-                <div class="full-width" style="margin-top: 10px;">
-                    <button id="btnConnectBank" class="bank-connect-btn" onclick="simulateBankConnection()">
-                        <span id="bankIcon">🔗</span> <span id="bankText">同意授權並連結銀行帳戶 (Open Banking)</span>
+                <div class="full-width" style="margin-top: 20px; border-top: 1px dashed #E5E7EB; padding-top: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input type="checkbox" id="authCheck" style="width: 20px; height: 20px;">
+                        <label for="authCheck" style="cursor: pointer; margin: 0;">我同意授權讀取相關金融數據以進行風險評估 (Open Banking)</label>
+                    </div>
+
+                    <button id="btnConnectBank" class="bank-connect-btn" onclick="simulateBankConnection()" disabled>
+                        <span id="bankIcon">🔗</span> <span id="bankText">請先勾選同意以連結銀行帳戶</span>
                     </button>
                 </div>
             </div>
@@ -372,42 +469,42 @@
                         <div class="feature-icon">💰</div>
                         <div class="feature-content">
                             <h5>帳戶行為特徵</h5>
-                            <p>薪資轉帳規律性、月底餘額波動、現金流穩定度</p>
+                            <p>薪資轉帳規律性、月底餘額波動</p>
                         </div>
                     </div>
                     <div class="feature-card" id="feat-2">
                         <div class="feature-icon">🌏</div>
                         <div class="feature-content">
                             <h5>匯款資料特徵</h5>
-                            <p>匯款頻率(週/月)、匯款金額趨勢、對象數量</p>
+                            <p>匯款頻率(週/月)、匯款金額趨勢</p>
                         </div>
                     </div>
                     <div class="feature-card" id="feat-3">
                         <div class="feature-icon">🛒</div>
                         <div class="feature-content">
                             <h5>簽帳卡消費分析</h5>
-                            <p>必要支出辨識(電信/房租)、衝動型消費比例</p>
+                            <p>必要支出辨識、衝動型消費比例</p>
                         </div>
                     </div>
                     <div class="feature-card" id="feat-4">
                         <div class="feature-icon">🧾</div>
                         <div class="feature-content">
                             <h5>民間借貸足跡</h5>
-                            <p>既有負債清償紀律、是否有多頭借貸行為</p>
+                            <p>既有負債清償紀律</p>
                         </div>
                     </div>
                     <div class="feature-card" id="feat-5">
                         <div class="feature-icon">📱</div>
                         <div class="feature-content">
                             <h5>社群語意分析</h5>
-                            <p>NLP情緒分析、生活穩定度訊號、潛在風險偵測</p>
+                            <p>生活穩定度訊號、潛在風險偵測</p>
                         </div>
                     </div>
                     <div class="feature-card" id="feat-6">
                         <div class="feature-icon">🪪</div>
                         <div class="feature-content">
                             <h5>身份與法遵</h5>
-                            <p>居留證(ARC)效期查核、工作合約存續狀態</p>
+                            <p>居留證(ARC)效期、工作合約存續</p>
                         </div>
                     </div>
                 </div>
@@ -438,6 +535,31 @@
                     <span style="font-size:0.7em; background:#E5E7EB; padding:2px 8px; border-radius:10px; margin-left:10px;">Auto-Generated</span>
                 </h4>
                 <div id="summaryText" style="font-size: 0.95em; color: #4B5563; line-height: 1.7;"></div>
+            </div>
+
+            <div id="fundsTable" class="funds-table-container">
+                <div class="funds-table-header">
+                    <i data-lucide="file-text"></i>
+                    <span>核定資金用途細項 (Funds Usage)</span>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th width="30%">項目</th>
+                            <th width="30%">金額 (TWD)</th>
+                            <th width="40%">說明</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fundsTableBody">
+                        </tbody>
+                    <tfoot style="background: #F9FAFB; font-weight: bold;">
+                        <tr>
+                            <td>總計</td>
+                            <td id="fundsTotal" class="money-text" style="color: var(--color-primary-dark);"></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -599,6 +721,40 @@
 </div>
 
 <script>
+    // 初始化圖標
+    lucide.createIcons();
+
+    /* ===========================
+       Logic: Bank Auth & File Upload
+       =========================== */
+    const authCheck = document.getElementById('authCheck');
+    const connectBtn = document.getElementById('btnConnectBank');
+    
+    // 監聽勾選狀態
+    authCheck.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            connectBtn.disabled = false;
+            document.getElementById('bankText').innerText = "同意授權並連結銀行帳戶 (Open Banking)";
+        } else {
+            connectBtn.disabled = true;
+            document.getElementById('bankText').innerText = "請先勾選同意以連結銀行帳戶";
+        }
+    });
+
+    // 檔案上傳模擬
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileNameDisplay = document.getElementById('fileName');
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+        if(e.target.files.length > 0) {
+            fileNameDisplay.innerText = "已選擇檔案: " + e.target.files[0].name;
+            uploadArea.style.borderColor = "#10B981";
+            uploadArea.style.background = "#ECFDF5";
+        }
+    });
+
     /* ===========================
        Feature: Market Counter Animation
        =========================== */
@@ -617,7 +773,7 @@
     }
 
     /* ===========================
-       Product 1: Risk Engine Logic (Updated for Feature Engineering)
+       Product 1: Risk Engine Logic
        =========================== */
     let isConnected = false;
     
@@ -656,7 +812,7 @@
                 clearInterval(interval);
                 finishConnection(btn, bankText, bankIcon);
             }
-        }, 150);
+        }, 100);
     }
 
     function highlightCard(id) {
@@ -687,14 +843,16 @@
         const dashboard = document.getElementById('riskDashboard');
         const btn = document.getElementById('btnRunInference');
         const summaryBox = document.getElementById('summaryBox');
+        const fundsTable = document.getElementById('fundsTable');
         
         // Get Inputs
         const name = document.getElementById('inputName').value || "申請人";
         const job = document.getElementById('inputJob').value || "未知職業";
+        const income = document.getElementById('inputIncome').value;
         const amount = parseInt(document.getElementById('inputAmount').value) || 0;
         const term = parseInt(document.getElementById('inputTerm').value);
         const reasonSelect = document.getElementById('inputReason');
-        const reason = reasonSelect.options[reasonSelect.selectedIndex].text;
+        const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
         const detail = document.getElementById('inputDetail').value || "無詳細說明";
 
         if(amount <= 0) { alert("請輸入有效的貸款金額"); return; }
@@ -743,10 +901,11 @@
             document.getElementById('mwcsScore').style.color = scoreColor;
             document.getElementById('pfcValue').innerText = pfcValue.toLocaleString();
             
-            // Update Summary Report with Features
+            // Update Summary Report
             document.getElementById('summaryText').innerHTML = `
                 <div style="margin-bottom:10px;">
                     <span class="report-label">申請人：</span>${name} (${job})<br>
+                    <span class="report-label">年收入申報：</span>NT$${Number(income).toLocaleString()}<br>
                     <span class="report-label">申請方案：</span>NT$${amount.toLocaleString()} / ${term} 期<br>
                 </div>
                 <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
@@ -763,8 +922,24 @@
                 </div>
             `;
             
+            // Update Funds Table
+            const tbody = document.getElementById('fundsTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>${reasonText} (主要用途)</td>
+                    <td class="money-text">$${Math.floor(amount * 0.8).toLocaleString()}</td>
+                    <td>${detail}</td>
+                </tr>
+                <tr>
+                    <td>雜支 / 手續費</td>
+                    <td class="money-text">$${Math.floor(amount * 0.2).toLocaleString()}</td>
+                    <td>平台服務費與匯款準備金</td>
+                </tr>
+            `;
+            document.getElementById('fundsTotal').innerText = "$" + amount.toLocaleString();
+
             dashboard.classList.add('active');
-            summaryBox.style.display = 'block';
+            fundsTable.style.display = 'block';
             
             btn.disabled = false;
             btn.innerText = "重新執行推論";
@@ -774,7 +949,7 @@
     }
 
     /* ===========================
-       Product 2: Chat Logic (Original)
+       Product 2: Chat Logic
        =========================== */
     const i18n = {
         "zh-TW": { welcome: "您好，我是移貸宗師的智能客服。請問您想詢問關於貸款、還款或帳戶的問題嗎？", chips: ["如何申請貸款?", "利率是多少?", "查詢餘額"] },
@@ -845,21 +1020,14 @@
         container.scrollTop = container.scrollHeight;
 
         try {
-            const API_URL = "https://rainbowy-rumpless-ashley.ngrok-free.dev/rag-chat";
-            const res = await fetch(API_URL, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    question: txt + (currentLang === 'zh-TW' ? '' : ` (Reply in ${currentLang})`), 
-                    language: currentLang 
-                })
-            });
-            const data = await res.json();
-            typingDiv.innerText = data.answer || "Sorry, connection error.";
+            // Mock Response for Demo
+            setTimeout(() => {
+                 typingDiv.innerText = "這是 Demo 模式的自動回覆。在正式版中，這裡將連接到您的 RAG 後端 API。";
+                 container.scrollTop = container.scrollHeight;
+            }, 1000);
         } catch(e) {
-            typingDiv.innerText = "Network Error (Demo Mode)";
+            typingDiv.innerText = "Network Error";
         }
-        container.scrollTop = container.scrollHeight;
     }
 
     window.onload = function() {
