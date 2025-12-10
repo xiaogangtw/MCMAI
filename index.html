@@ -28,14 +28,14 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; } /* 平滑捲動效果 */
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Inter', '微軟正黑體', sans-serif;
             background-color: var(--color-bg-light);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden; /* 防止水平卷軸出現 */
+            overflow-x: hidden;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
@@ -60,7 +60,6 @@
         header { background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
         
-        /* Logo 改為連結樣式 */
         .logo { 
             display: flex; align-items: center; font-weight: 900; font-size: 1.5em; 
             color: var(--color-primary); text-decoration: none; cursor: pointer;
@@ -201,14 +200,19 @@
             grid-column: 1 / -1; margin-top: 20px; display: none; /* Initially hidden */
             background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
             animation: fadeIn 0.8s ease-in-out;
+            overflow-x: auto; /* 確保內容過長時可橫向捲動 */
         }
-        .funds-table-header {
+        .custom-table { width: 100%; border-collapse: collapse; min-width: 600px; /* 強制最小寬度以觸發捲動 */ }
+        
+        /* 標題列樣式 (移至 thead 內) */
+        .table-title-row th {
             background: #ECFDF5; color: #065F46; padding: 15px 20px; font-weight: 700; 
-            border-bottom: 1px solid #D1FAE5; display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid #D1FAE5; text-align: left;
         }
-        .custom-table { width: 100%; border-collapse: collapse; }
+        .table-title-content { display: flex; align-items: center; gap: 8px; }
+
         .custom-table th, .custom-table td { padding: 15px; text-align: left; border-bottom: 1px solid #F3F4F6; }
-        .custom-table th { color: #6B7280; font-size: 0.9em; font-weight: 600; background: #F9FAFB; }
+        .col-header { color: #6B7280; font-size: 0.9em; font-weight: 600; background: #F9FAFB; }
         .custom-table td { color: #374151; font-size: 0.95em; }
         .money-text { font-family: 'Courier New', monospace; font-weight: 700; color: #10B981; }
 
@@ -241,10 +245,15 @@
         .chat-preview-bubble.right {
             background: var(--color-primary); color: #fff; align-self: flex-end; border-radius: 12px 12px 0 12px;
         }
+        
+        /* 讓按鈕置中的容器 */
+        .btn-center-wrapper { text-align: center; margin-top: 30px; }
+
         .btn-try-chat {
             background: var(--color-accent); color: #fff; padding: 12px 24px; border-radius: 8px;
-            font-weight: 700; border: none; cursor: pointer; font-size: 1.1em; margin-top: 20px;
+            font-weight: 700; border: none; cursor: pointer; font-size: 1.1em;
             box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); transition: 0.3s;
+            display: inline-block;
         }
         .btn-try-chat:hover { background: #7C3AED; transform: translateY(-2px); }
 
@@ -295,10 +304,12 @@
         .member-desc { color: var(--text-sub); font-size: 1em; line-height: 1.6; }
 
         /* =========================================
-           Chat Widget Overlay
+           Chat Widget Overlay (優化尺寸)
            ========================================= */
         .chat-widget-window {
-            position: fixed; bottom: 90px; right: 30px; width: 380px; height: 600px; max-height: 80vh;
+            position: fixed; bottom: 90px; right: 30px; 
+            width: 340px; height: 550px; /* 電腦版縮小尺寸 */
+            max-height: 80vh;
             background: #1F2937; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             display: flex; flex-direction: column; z-index: 9999; 
             transform: translateY(20px); opacity: 0; visibility: hidden; transition: 0.3s;
@@ -323,9 +334,9 @@
             .nav-links a { margin: 0; font-size: 0.95em; }
             
             /* Hero 區塊優化 */
-            .hero { padding: 50px 0; } /* 減少間距 */
-            .hero h1 { font-size: 2em; line-height: 1.3; } /* 縮小標題 */
-            .market-count-val { font-size: 3.2em; } /* 縮小數字，避免斷行 */
+            .hero { padding: 50px 0; }
+            .hero h1 { font-size: 2em; line-height: 1.3; }
+            .market-count-val { font-size: 3.2em; }
             .hero p { font-size: 1.1em; padding: 0 10px; }
             
             /* 通用區塊間距縮減 */
@@ -337,8 +348,7 @@
             .risk-simulation-container { padding: 25px 20px; }
             .form-grid, .feature-grid { grid-template-columns: 1fr; }
             
-            /* 讓輸入框和按鈕更好點擊 */
-            .form-group input, .form-group select, .cta-button { font-size: 16px; } /* 防止 iOS 自動縮放 */
+            .form-group input, .form-group select, .cta-button { font-size: 16px; } 
             .cta-button { width: 100%; max-width: 300px; padding: 12px; }
 
             /* 功能區塊 RWD */
@@ -346,11 +356,16 @@
             .cs-layout { flex-direction: column; }
             .team-grid { grid-template-columns: 1fr; }
             
-            /* Chat Widget RWD */
-            .chat-widget-window { width: 92%; right: 4%; bottom: 20px; height: 70vh; }
+            /* Chat Widget RWD (手機版高度限制與收納優化) */
+            .chat-widget-window { 
+                width: 90%; 
+                right: 5%; 
+                bottom: 20px; 
+                height: 60vh; /* 降低高度 */
+                max-height: 500px;
+            }
             
-            /* 表格可橫向捲動提示 */
-            .funds-table-container { overflow-x: auto; }
+            /* 資金用途表格橫向捲動提示 */
             .custom-table th, .custom-table td { padding: 10px; font-size: 0.9em; white-space: nowrap; }
         }
     </style>
@@ -391,8 +406,10 @@
         <p class="section-desc">透過 Open Banking 聚合「六大替代數據」，並透過特徵工程精準運算，解決傳統聯徵無法覆蓋的信用隱形痛點。</p>
 
         <div class="risk-simulation-container">
-            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料</h4>
-            <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9em;">請填寫完整的個人資訊以進行審核，標示 <span class="required">*</span> 為必填欄位。</p>
+            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料模擬 (API Input)</h4>
+            <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9em;">
+                請填寫完整的個人資訊以進行審核，<span style="white-space: nowrap;">標示 <span class="required">*</span> 為必填欄位。</span>
+            </p>
             
             <div class="form-grid">
                 
@@ -465,6 +482,7 @@
                         <option value="education">教育進修</option>
                         <option value="equipment">設備採購 (營運)</option>
                         <option value="marketing">行銷推廣</option>
+                        <option value="other">其他 (Other)</option>
                     </select>
                 </div>
                 <div class="form-group full-width">
@@ -579,16 +597,20 @@
             </div>
 
             <div id="fundsTable" class="funds-table-container">
-                <div class="funds-table-header">
-                    <i data-lucide="file-text"></i>
-                    <span>核定資金用途細項 (Funds Usage)</span>
-                </div>
                 <table class="custom-table">
                     <thead>
+                        <tr class="table-title-row">
+                            <th colspan="3">
+                                <div class="table-title-content">
+                                    <i data-lucide="file-text"></i>
+                                    <span>核定資金用途細項 (Funds Usage)</span>
+                                </div>
+                            </th>
+                        </tr>
                         <tr>
-                            <th width="30%">項目</th>
-                            <th width="30%">金額 (TWD)</th>
-                            <th width="40%">說明</th>
+                            <th class="col-header" width="30%">項目</th>
+                            <th class="col-header" width="30%">金額 (TWD)</th>
+                            <th class="col-header" width="40%">說明</th>
                         </tr>
                     </thead>
                     <tbody id="fundsTableBody">
@@ -638,9 +660,11 @@
                     </li>
                 </ul>
 
-                <button class="btn-try-chat" onclick="openChatDemo()">
-                    💬 立即體驗多語言對話 (Live Demo)
-                </button>
+                <div class="btn-center-wrapper">
+                    <button class="btn-try-chat" onclick="openChatDemo()">
+                        💬 立即體驗多語言對話 (Live Demo)
+                    </button>
+                </div>
             </div>
 
             <div class="cs-visual">
