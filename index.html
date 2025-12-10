@@ -673,7 +673,7 @@
                 <div class="team-grid">
                     <div class="team-card">
                         <div class="member-avatar-box">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ray" alt="黃聖剛" class="member-avatar">
+                            <img src="huang.png" alt="黃聖剛" class="member-avatar">
                         </div>
                         <div class="member-name">黃聖剛</div>
                         <div class="member-title">CEO | 執行長</div>
@@ -681,7 +681,7 @@
                     </div>
                     <div class="team-card">
                         <div class="member-avatar-box">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lee" alt="李旻儒" class="member-avatar">
+                            <img src="livingroom.png" alt="李旻儒" class="member-avatar">
                         </div>
                         <div class="member-name">李旻儒</div>
                         <div class="member-title">CTO | 技術長</div>
@@ -689,7 +689,7 @@
                     </div>
                     <div class="team-card">
                         <div class="member-avatar-box">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chen" alt="陳逸軒" class="member-avatar">
+                            <img src="yixuan.png" alt="陳逸軒" class="member-avatar">
                         </div>
                         <div class="member-name">陳逸軒</div>
                         <div class="member-title">CPO | 產品長</div>
@@ -822,7 +822,7 @@
         document.getElementById('inputEmergencyPhone').value = "0988-777-666";
         document.getElementById('inputJob').value = "電子廠作業員";
         
-        // --- 修正需求 2：年收入預設改為 390000 ---
+        // --- 更新需求 2：年收入預設改為 390000 ---
         document.getElementById('inputIncome').value = "390000"; 
         
         document.getElementById('inputAmount').value = "150000";
@@ -932,10 +932,11 @@
         setTimeout(() => {
             const mwcsScore = Math.floor(Math.random() * (92 - 75) + 75); 
             
-            // --- 修正需求 3：PFCF 範圍調整為 2000-10000 ---
-            const pfcValue = Math.floor(Math.random() * (10000 - 2000) + 2000);
+            // --- 更新需求 3：PFCF 範圍調整為 2000-10000 ---
+            // 公式：Math.random() * (max - min + 1) + min
+            const pfcValue = Math.floor(Math.random() * (10000 - 2000 + 1)) + 2000;
             
-            // --- 修正需求 1：計算月付金並比較 ---
+            // --- 更新需求 1：計算月付金並比較 ---
             const monthlyPayment = Math.ceil(amount / term);
             
             let approvalStatus = "";
@@ -946,7 +947,7 @@
                 // 不建議核准
                 approvalStatus = "不建議核准 (High Risk)";
                 approvalColor = "#EF4444"; // 紅色
-                riskWarningHtml = `<br><span style="font-size:0.9em; color:#EF4444;">(警告：月付金 ${monthlyPayment.toLocaleString()} > PFCF ${pfcValue.toLocaleString()})</span>`;
+                riskWarningHtml = `<br><span style="font-size:0.9em; color:#EF4444;">(警告：預估月付金 NT$${monthlyPayment.toLocaleString()} 大於 PFCF NT$${pfcValue.toLocaleString()})</span>`;
             } else {
                 // 建議核准
                 approvalStatus = "建議核准 (High Approval)";
