@@ -34,7 +34,7 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* 標題樣式 */
+        /* 標題樣式調整 (修正需求 2：字體縮小) */
         .section-tag {
             display: inline-block; padding: 6px 12px; border-radius: 20px;
             font-size: 0.9em; font-weight: 700; letter-spacing: 1px;
@@ -44,36 +44,48 @@
         .tag-chat { background-color: #EDE9FE; color: #5B21B6; }
         
         h2.section-title {
-            font-size: 2.5em; font-weight: 800; margin-bottom: 15px;
+            font-size: 2em; /* 原本 2.5em -> 改為 2em */
+            font-weight: 800; margin-bottom: 15px;
             line-height: 1.2;
         }
         p.section-desc {
             font-size: 1.2em; color: var(--text-sub); max-width: 700px; margin-bottom: 30px;
         }
 
-        /* --- Header --- */
+        /* --- Header & Navigation (修正需求 1：漢堡選單) --- */
         header { background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            height: 70px; /* 稍微縮減高度讓手機版更緊湊 */
+            position: relative;
+        }
         
         .logo { 
-            display: flex; align-items: center; font-weight: 900; font-size: 1.5em; 
+            display: flex; align-items: center; font-weight: 900; font-size: 1.4em; 
             color: var(--color-primary); text-decoration: none; cursor: pointer;
             transition: opacity 0.3s;
         }
         .logo:hover { opacity: 0.8; }
         .logo span { color: var(--text-main); margin-left: 5px; }
         
+        /* 電腦版選單樣式 */
         .nav-links { display: flex; align-items: center; }
-        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-sub); font-weight: 500; transition: 0.3s; }
+        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-sub); font-weight: 500; transition: 0.3s; font-size: 0.95em; }
         .nav-links a:hover { color: var(--color-primary); }
 
         .nav-demo-btn {
             margin-left: 20px; background-color: #EFF6FF; color: var(--color-primary);
-            border: 1px solid #BFDBFE; padding: 6px 16px; border-radius: 20px;
-            font-weight: 600; font-size: 0.9em; cursor: pointer; display: flex; align-items: center;
+            border: 1px solid #BFDBFE; padding: 6px 14px; border-radius: 20px;
+            font-weight: 600; font-size: 0.85em; cursor: pointer; display: flex; align-items: center;
             gap: 5px; transition: 0.3s;
         }
         .nav-demo-btn:hover { background-color: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+        /* 手機版漢堡按鈕 (預設隱藏) */
+        .hamburger-btn {
+            display: none;
+            background: none; border: none; cursor: pointer; color: var(--text-main);
+        }
 
         /* --- Hero --- */
         .hero { padding: 80px 0; text-align: center; background: linear-gradient(to bottom, #EFF6FF, #F9FAFB); }
@@ -136,7 +148,7 @@
         .bank-connect-btn.connected { background: #ECFDF5; border: 2px solid #10B981; color: #065F46; cursor: default; }
         .bank-connect-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 
-        /* --- KYC 按鈕與 Modal 樣式 --- */
+        /* KYC */
         .kyc-btn {
             width: 100%; padding: 15px; background: #EFF6FF; border: 1px solid #BFDBFE;
             color: #1D4ED8; font-weight: 700; border-radius: 8px; cursor: pointer;
@@ -169,7 +181,7 @@
         }
         .modal-close-btn:disabled { background: #D1D5DB; cursor: not-allowed; }
 
-        /* --- 特徵工程展示區塊 --- */
+        /* 特徵工程 */
         .feature-extraction-panel {
             display: none; margin-top: 20px; background: #F8FAFC; border: 1px solid #E2E8F0;
             border-radius: 12px; padding: 20px; animation: fadeIn 0.5s ease-in-out;
@@ -191,7 +203,7 @@
         .action-btn:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; }
         .action-btn:hover:not(:disabled) { transform: translateY(-2px); background: var(--color-primary-dark); }
 
-        /* 風控結果儀表板 */
+        /* Dashboard */
         .risk-dashboard {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; opacity: 0.5; pointer-events: none; transition: 0.5s;
         }
@@ -206,7 +218,7 @@
             border-radius: 12px; text-align: left;
         }
         
-        /* 資金用途表格 */
+        /* Funds Table */
         .funds-table-container {
             grid-column: 1 / -1; margin-top: 20px; display: none; background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; animation: fadeIn 0.8s ease-in-out; overflow-x: auto;
         }
@@ -220,9 +232,7 @@
         .col-header { color: #6B7280; font-size: 0.9em; font-weight: 600; background: #F9FAFB; }
         .money-text { font-family: 'Courier New', monospace; font-weight: 700; color: #10B981; }
 
-        /* =========================================
-           PRODUCT 2: 多語言智能客服
-           ========================================= */
+        /* CS & Team */
         .cs-layout { display: flex; gap: 50px; align-items: center; }
         .cs-content { flex: 1; }
         .cs-visual { flex: 1; position: relative; }
@@ -250,9 +260,6 @@
         }
         .btn-try-chat:hover { background: #7C3AED; transform: translateY(-2px); }
 
-        /* =========================================
-           About & Team
-           ========================================= */
         .about-content-wrapper { text-align: center; }
         .video-container {
             position: relative; width: 100%; max-width: 900px; margin: 0 auto 60px;
@@ -279,9 +286,7 @@
         }
         .member-desc { color: var(--text-sub); font-size: 1em; line-height: 1.6; }
 
-        /* =========================================
-           Chat Widget
-           ========================================= */
+        /* Chat Widget */
         .chat-widget-window {
             position: fixed; bottom: 90px; right: 30px; width: 340px; height: 550px; max-height: 80vh;
             background: #1F2937; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
@@ -296,24 +301,46 @@
         .msg.user { background: var(--color-primary); color: #fff; margin-left: auto; }
         .close-chat { cursor: pointer; font-size: 1.5em; background: none; border: none; color: #9CA3AF; }
 
-        /* RWD */
+        /* =========================================
+           RWD 響應式優化 (手機版樣式)
+           ========================================= */
         @media (max-width: 768px) {
-            nav { height: auto; flex-direction: column; padding: 15px 0; }
-            .nav-links { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-            .nav-links a { margin: 0; font-size: 0.95em; }
-            .nav-demo-btn { margin-left: 0; width: 100%; justify-content: center; margin-top: 5px; }
-            .hero { padding: 50px 0; }
+            /* 1. 手機導覽列 (Hamburger Menu) */
+            nav { justify-content: space-between; position: relative; }
+            .hamburger-btn { display: block; padding: 10px; font-size: 1.5em; }
+            
+            .nav-links {
+                display: none; /* 預設隱藏 */
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: white; flex-direction: column;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 20px;
+                border-top: 1px solid #f0f0f0;
+            }
+            .nav-links.active { display: flex; } /* 點擊後顯示 */
+            
+            .nav-links a { margin: 10px 0; font-size: 1.1em; width: 100%; text-align: center; }
+            .nav-demo-btn { margin: 10px 0; width: 100%; justify-content: center; }
+
+            /* 2. 字體縮小 */
+            h2.section-title { font-size: 1.6em; } /* 手機版標題更小 */
             .hero h1 { font-size: 2em; line-height: 1.3; }
             .market-count-val { font-size: 3.2em; }
-            .product-section { padding: 50px 0; }
+            
+            /* 3. 版面間距調整 */
+            .hero, .product-section { padding: 50px 0; }
             .risk-simulation-container { padding: 25px 20px; }
-            .form-grid, .feature-grid { grid-template-columns: 1fr; }
+            
+            /* 4. Grid 轉單欄 */
+            .form-grid, .feature-grid, .risk-dashboard, .cs-layout, .team-grid { grid-template-columns: 1fr; flex-direction: column; }
+            
+            /* 5. 輸入框優化 */
             .form-group input, .form-group select, .cta-button { font-size: 16px; } 
             .cta-button { width: 100%; max-width: 300px; padding: 12px; }
-            .risk-dashboard { grid-template-columns: 1fr; }
-            .cs-layout { flex-direction: column; }
-            .team-grid { grid-template-columns: 1fr; }
+            
+            /* 6. Widget */
             .chat-widget-window { width: 90%; right: 5%; bottom: 20px; height: 60vh; max-height: 500px; }
+            
+            /* 7. 表格卷軸 */
             .custom-table th, .custom-table td { padding: 10px; font-size: 0.9em; white-space: nowrap; }
         }
     </style>
@@ -351,11 +378,14 @@
             <a href="#" class="logo">
                 MCMAI<span>移貸宗師</span>
             </a>
-            <div class="nav-links">
-                <a href="#product-risk">AI 風控引擎</a>
-                <a href="#product-cs">智能客服系統</a>
-                <a href="#about">關於我們</a>
-                <button onclick="fillDemoData()" class="nav-demo-btn">
+            <button class="hamburger-btn" onclick="toggleMobileMenu()">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#product-risk" onclick="closeMobileMenu()">AI 風控引擎</a>
+                <a href="#product-cs" onclick="closeMobileMenu()">智能客服系統</a>
+                <a href="#about" onclick="closeMobileMenu()">關於我們</a>
+                <button onclick="fillDemoData(); closeMobileMenu();" class="nav-demo-btn">
                     <i data-lucide="pen-tool" style="width:16px; height:16px;"></i>
                     載入範例 (Demo)
                 </button>
@@ -368,10 +398,8 @@
     <div class="container">
         <div class="market-count-label">截止目前全台外籍移工總人數</div>
         <div id="marketCount" class="market-count-val">858,939</div>
-        
         <h1 style="margin-top: 20px;">移工金融的雙核心引擎</h1>
         <p>我們提供「精準風控模型」與「多語言溝通系統」，協助 B 端企業安全、高效地開發移工藍海市場。</p>
-        
         <a href="#product-risk" class="cta-button">探索解決方案</a>
     </div>
 </section>
@@ -512,7 +540,6 @@
                     <div class="upload-box" id="uploadArea">
                         <i data-lucide="image" class="upload-icon" style="width: 40px; height: 40px; margin: 0 auto 10px; display: block;"></i>
                         <p style="color: var(--color-primary); font-weight: 600;">點擊上傳文件</p>
-                        <p style="font-size: 0.8em; color: var(--text-sub);">支援 PNG, JPG, PDF (Max 10MB)</p>
                         <input type="file" id="fileInput" style="display: none;">
                         <p id="fileName" style="font-size: 0.9em; color: var(--color-secondary); margin-top: 10px; font-weight: bold;"></p>
                     </div>
@@ -536,30 +563,12 @@
                     <span id="scanPercent" style="font-weight:bold; color:var(--color-primary);">0%</span>
                 </div>
                 <div class="feature-grid">
-                    <div class="feature-card" id="feat-1">
-                        <div class="feature-icon">💰</div>
-                        <div class="feature-content"><h5>帳戶行為特徵</h5><p>薪資轉帳規律性、月底餘額波動</p></div>
-                    </div>
-                    <div class="feature-card" id="feat-2">
-                        <div class="feature-icon">🌏</div>
-                        <div class="feature-content"><h5>匯款資料特徵</h5><p>匯款頻率(週/月)、匯款金額趨勢</p></div>
-                    </div>
-                    <div class="feature-card" id="feat-3">
-                        <div class="feature-icon">🛒</div>
-                        <div class="feature-content"><h5>簽帳卡消費分析</h5><p>必要支出辨識、衝動型消費比例</p></div>
-                    </div>
-                    <div class="feature-card" id="feat-4">
-                        <div class="feature-icon">🧾</div>
-                        <div class="feature-content"><h5>民間借貸足跡</h5><p>既有負債清償紀律</p></div>
-                    </div>
-                    <div class="feature-card" id="feat-5">
-                        <div class="feature-icon">📱</div>
-                        <div class="feature-content"><h5>社群語意分析</h5><p>生活穩定度訊號、潛在風險偵測</p></div>
-                    </div>
-                    <div class="feature-card" id="feat-6">
-                        <div class="feature-icon">🪪</div>
-                        <div class="feature-content"><h5>身份與法遵</h5><p>居留證(ARC)效期、工作合約存續</p></div>
-                    </div>
+                    <div class="feature-card" id="feat-1"><div class="feature-icon">💰</div><div class="feature-content"><h5>帳戶行為特徵</h5><p>薪資轉帳規律性</p></div></div>
+                    <div class="feature-card" id="feat-2"><div class="feature-icon">🌏</div><div class="feature-content"><h5>匯款資料特徵</h5><p>匯款頻率與趨勢</p></div></div>
+                    <div class="feature-card" id="feat-3"><div class="feature-icon">🛒</div><div class="feature-content"><h5>簽帳卡消費分析</h5><p>必要支出辨識</p></div></div>
+                    <div class="feature-card" id="feat-4"><div class="feature-icon">🧾</div><div class="feature-content"><h5>民間借貸足跡</h5><p>既有負債清償紀律</p></div></div>
+                    <div class="feature-card" id="feat-5"><div class="feature-icon">📱</div><div class="feature-content"><h5>社群語意分析</h5><p>潛在風險偵測</p></div></div>
+                    <div class="feature-card" id="feat-6"><div class="feature-icon">🪪</div><div class="feature-content"><h5>身份與法遵</h5><p>居留證效期查核</p></div></div>
                 </div>
             </div>
 
@@ -704,12 +713,17 @@
 </div>
 
 <script>
-    // 初始化圖標
     lucide.createIcons();
 
-    /* ===========================
-       Logic 1: KYC Modal
-       =========================== */
+    /* --- Toggle Mobile Menu --- */
+    function toggleMobileMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+    function closeMobileMenu() {
+        document.getElementById('navLinks').classList.remove('active');
+    }
+
+    /* --- KYC Modal Logic --- */
     const kycModal = document.getElementById('kycModal');
     const termBox = document.getElementById('termBox');
     const kycCheckbox = document.getElementById('kycCheckbox');
@@ -743,9 +757,14 @@
         lucide.createIcons();
     }
 
-    /* ===========================
-       Logic 2: Bank Auth & Private Loan
-       =========================== */
+    /* --- Private Loan Upload Toggle --- */
+    function toggleLoanUpload() {
+        const check = document.getElementById('privateLoanCheck');
+        const box = document.getElementById('privateLoanUploadBox');
+        box.style.display = check.checked ? 'block' : 'none';
+    }
+
+    /* --- Bank Auth Logic --- */
     const authCheck = document.getElementById('authCheck');
     const connectBtn = document.getElementById('btnConnectBank');
     
@@ -759,7 +778,7 @@
         }
     });
 
-    // 檔案上傳模擬
+    // File Upload
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const fileNameDisplay = document.getElementById('fileName');
@@ -773,28 +792,15 @@
         }
     });
 
-    // 民間借貸切換
-    function toggleLoanUpload() {
-        const check = document.getElementById('privateLoanCheck');
-        const box = document.getElementById('privateLoanUploadBox');
-        box.style.display = check.checked ? 'block' : 'none';
-    }
-
-    // 範例資料填充 (Updated for new fields)
+    // Fill Demo Data
     function fillDemoData() {
         document.getElementById('inputName').value = "王小明";
         document.getElementById('inputPhone').value = "0912-345-678";
         document.getElementById('inputEmail').value = "wang.demo@example.com";
-        
-        // Social
         document.getElementById('inputFB').value = "fb.com/wang.demo";
         document.getElementById('inputIG').value = "@wang_life";
-        
-        // Emergency
         document.getElementById('inputEmergencyName').value = "林大華";
         document.getElementById('inputEmergencyPhone').value = "0988-777-666";
-
-        // Financial
         document.getElementById('inputJob').value = "電子廠作業員";
         document.getElementById('inputIncome').value = "500000";
         document.getElementById('inputAmount').value = "150000";
@@ -802,19 +808,15 @@
         document.getElementById('inputReason').value = "transport";
         document.getElementById('inputDetail').value = "購買 Gogoro 機車通勤使用";
 
-        // Auto-complete KYC for demo
+        // Auto-complete KYC
         btnOpenKYC.innerHTML = '<i data-lucide="check-circle"></i> 已完成 KYC 授權簽署 (Demo)';
         btnOpenKYC.classList.add('signed');
         kycSignedInput.value = "true";
         lucide.createIcons();
 
-        // Scroll to form
         document.querySelector('.risk-simulation-container').scrollIntoView({ behavior: 'smooth' });
     }
 
-    /* ===========================
-       Feature: Market Counter Animation
-       =========================== */
     function animateMarketCount(targetValue) {
         const element = document.getElementById('marketCount');
         let startValue = 0; const duration = 2000; const startTime = performance.now();
@@ -829,15 +831,9 @@
         requestAnimationFrame(updateCount);
     }
 
-    /* ===========================
-       Product 1: Risk Engine Logic
-       =========================== */
     let isConnected = false;
-    
     function simulateBankConnection() {
         if(isConnected) return;
-        
-        // Check KYC first
         if(document.getElementById('kycSigned').value !== "true") {
             alert("請先完成上方的「KYC 用戶實名認證授權」！");
             return;
@@ -863,7 +859,14 @@
 
             if(percent >= 100) {
                 clearInterval(interval);
-                finishConnection(btn);
+                isConnected = true;
+                btn.classList.add('connected');
+                btn.innerHTML = '<span id="bankIcon">✅</span> 已完成多源異質資料特徵提取';
+                btn.style.opacity = "1";
+                document.querySelectorAll('.feature-card').forEach(c => {
+                    c.classList.remove('scanning'); c.classList.add('done');
+                });
+                document.getElementById('btnRunInference').disabled = false;
             }
         }, 80);
     }
@@ -871,17 +874,6 @@
     function highlightCard(id) {
         const card = document.getElementById(id);
         if(!card.classList.contains('scanning')) card.classList.add('scanning');
-    }
-
-    function finishConnection(btn) {
-        isConnected = true;
-        btn.classList.add('connected');
-        btn.innerHTML = '<span id="bankIcon">✅</span> 已完成多源異質資料特徵提取';
-        btn.style.opacity = "1";
-        document.querySelectorAll('.feature-card').forEach(c => {
-            c.classList.remove('scanning'); c.classList.add('done');
-        });
-        document.getElementById('btnRunInference').disabled = false;
     }
 
     function runInference() {
@@ -894,7 +886,6 @@
         const job = document.getElementById('inputJob').value || "未知職業";
         const income = document.getElementById('inputIncome').value;
         const amount = parseInt(document.getElementById('inputAmount').value) || 0;
-        const term = parseInt(document.getElementById('inputTerm').value);
         const reasonSelect = document.getElementById('inputReason');
         const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
         const detail = document.getElementById('inputDetail').value || "無詳細說明";
@@ -911,7 +902,6 @@
             const mwcsScore = Math.floor(Math.random() * (92 - 75) + 75); 
             const pfcValue = Math.floor(Math.random() * (22000 - 15000) + 15000);
             
-            // UI Update
             document.getElementById('mwcsScore').innerText = mwcsScore;
             document.getElementById('mwcsScore').style.color = "#10B981";
             document.getElementById('pfcValue').innerText = pfcValue.toLocaleString();
@@ -932,8 +922,7 @@
                 </div>
             `;
             
-            const tbody = document.getElementById('fundsTableBody');
-            tbody.innerHTML = `
+            document.getElementById('fundsTableBody').innerHTML = `
                 <tr>
                     <td>${reasonText} (主要用途)</td>
                     <td class="money-text">$${amount.toLocaleString()}</td>
@@ -952,9 +941,7 @@
         }, 2000);
     }
 
-    /* ===========================
-       Product 2: Chat Logic
-       =========================== */
+    // Chat Logic
     const i18n = {
         "zh-TW": { welcome: "您好，我是移貸宗師的智能客服。請問您想詢問關於貸款、還款或帳戶的問題嗎？", chips: ["如何申請貸款?", "利率是多少?", "查詢餘額"] },
         "vi": { welcome: "Xin chào, tôi là trợ lý AI. Bạn muốn hỏi về khoản vay hay thanh toán?", chips: ["Làm thế nào để vay?", "Lãi suất bao nhiêu?", "Kiểm tra số dư"] },
@@ -962,7 +949,6 @@
         "th": { welcome: "สวัสดี! ฉันคือผู้ช่วย AI มีอะไรให้ฉันช่วยไหม?", chips: ["สมัครอย่างไร?", "ดอกเบี้ยเท่าไหร่?", "เช็คยอดคงเหลือ"] },
         "en": { welcome: "Hello, I am the AI assistant. How can I help you with your loan?", chips: ["How to apply?", "Interest rates?", "Check balance"] }
     };
-    
     let currentLang = "zh-TW";
 
     function openChatDemo() {
@@ -979,20 +965,14 @@
         const data = i18n[currentLang];
         const container = document.getElementById('messagesContainer');
         const chipsDiv = document.getElementById('quickChips');
-        
         container.innerHTML = `<div class="msg bot">${data.welcome}</div>`;
-        
         chipsDiv.innerHTML = "";
         data.chips.forEach(q => {
             const btn = document.createElement('button');
             btn.innerText = q;
-            btn.style.marginRight = "8px";
-            btn.style.padding = "4px 10px";
-            btn.style.borderRadius = "15px";
-            btn.style.border = "1px solid #3B82F6";
-            btn.style.background = "rgba(59,130,246,0.1)";
-            btn.style.color = "#3B82F6";
-            btn.style.cursor = "pointer";
+            btn.style.marginRight = "8px"; btn.style.padding = "4px 10px"; btn.style.borderRadius = "15px";
+            btn.style.border = "1px solid #3B82F6"; btn.style.background = "rgba(59,130,246,0.1)";
+            btn.style.color = "#3B82F6"; btn.style.cursor = "pointer";
             btn.onclick = () => sendMsg(q);
             chipsDiv.appendChild(btn);
         });
@@ -1006,36 +986,27 @@
     function handleSend() {
         const input = document.getElementById('chatInput');
         const txt = input.value.trim();
-        if(txt) {
-            sendMsg(txt);
-            input.value = "";
-        }
+        if(txt) { sendMsg(txt); input.value = ""; }
     }
 
     async function sendMsg(txt) {
         const container = document.getElementById('messagesContainer');
         container.innerHTML += `<div class="msg user">${txt}</div>`;
         container.scrollTop = container.scrollHeight;
-
         const typingDiv = document.createElement('div');
         typingDiv.className = "msg bot";
         typingDiv.innerText = "...";
         container.appendChild(typingDiv);
         container.scrollTop = container.scrollHeight;
-
         try {
             setTimeout(() => {
                  typingDiv.innerText = "這是 Demo 模式的自動回覆。在正式版中，這裡將連接到您的 RAG 後端 API。";
                  container.scrollTop = container.scrollHeight;
             }, 1000);
-        } catch(e) {
-            typingDiv.innerText = "Network Error";
-        }
+        } catch(e) { typingDiv.innerText = "Network Error"; }
     }
 
-    window.onload = function() {
-        animateMarketCount(858939); 
-    };
+    window.onload = function() { animateMarketCount(858939); };
 </script>
 
 </body>
