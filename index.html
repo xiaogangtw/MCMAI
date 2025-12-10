@@ -28,11 +28,14 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; } /* 平滑捲動效果 */
+        
         body {
             font-family: 'Inter', '微軟正黑體', sans-serif;
             background-color: var(--color-bg-light);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden; /* 防止水平卷軸出現 */
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
@@ -56,7 +59,14 @@
         /* --- Header --- */
         header { background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
         nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { display: flex; align-items: center; font-weight: 900; font-size: 1.5em; color: var(--color-primary); }
+        
+        /* Logo 改為連結樣式 */
+        .logo { 
+            display: flex; align-items: center; font-weight: 900; font-size: 1.5em; 
+            color: var(--color-primary); text-decoration: none; cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .logo:hover { opacity: 0.8; }
         .logo span { color: var(--text-main); margin-left: 5px; }
         
         .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-sub); font-weight: 500; transition: 0.3s; }
@@ -303,18 +313,45 @@
         
         .close-chat { cursor: pointer; font-size: 1.5em; background: none; border: none; color: #9CA3AF; }
 
-        /* RWD */
+        /* =========================================
+           RWD 響應式優化 (手機版樣式)
+           ========================================= */
         @media (max-width: 768px) {
+            /* 導覽列優化 */
             nav { height: auto; flex-direction: column; padding: 15px 0; }
-            .nav-links { margin-top: 15px; }
-            .nav-links a { margin: 0 10px; }
-            .hero h1 { font-size: 2.5em; }
-            .market-count-val { font-size: 3em; }
+            .nav-links { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .nav-links a { margin: 0; font-size: 0.95em; }
+            
+            /* Hero 區塊優化 */
+            .hero { padding: 50px 0; } /* 減少間距 */
+            .hero h1 { font-size: 2em; line-height: 1.3; } /* 縮小標題 */
+            .market-count-val { font-size: 3.2em; } /* 縮小數字，避免斷行 */
+            .hero p { font-size: 1.1em; padding: 0 10px; }
+            
+            /* 通用區塊間距縮減 */
+            .product-section { padding: 50px 0; }
+            .section-title { font-size: 1.8em; }
+            p.section-desc { font-size: 1em; }
+
+            /* 表單優化 */
+            .risk-simulation-container { padding: 25px 20px; }
             .form-grid, .feature-grid { grid-template-columns: 1fr; }
+            
+            /* 讓輸入框和按鈕更好點擊 */
+            .form-group input, .form-group select, .cta-button { font-size: 16px; } /* 防止 iOS 自動縮放 */
+            .cta-button { width: 100%; max-width: 300px; padding: 12px; }
+
+            /* 功能區塊 RWD */
             .risk-dashboard { grid-template-columns: 1fr; }
             .cs-layout { flex-direction: column; }
             .team-grid { grid-template-columns: 1fr; }
-            .chat-widget-window { width: 90%; right: 5%; bottom: 20px; }
+            
+            /* Chat Widget RWD */
+            .chat-widget-window { width: 92%; right: 4%; bottom: 20px; height: 70vh; }
+            
+            /* 表格可橫向捲動提示 */
+            .funds-table-container { overflow-x: auto; }
+            .custom-table th, .custom-table td { padding: 10px; font-size: 0.9em; white-space: nowrap; }
         }
     </style>
 </head>
@@ -323,9 +360,9 @@
 <header>
     <div class="container">
         <nav>
-            <div class="logo">
+            <a href="#" class="logo">
                 MCMAI<span>移貸宗師</span>
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="#product-risk">AI 風控引擎</a>
                 <a href="#product-cs">智能客服系統</a>
@@ -354,7 +391,7 @@
         <p class="section-desc">透過 Open Banking 聚合「六大替代數據」，並透過特徵工程精準運算，解決傳統聯徵無法覆蓋的信用隱形痛點。</p>
 
         <div class="risk-simulation-container">
-            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料模擬 (API Input)</h4>
+            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料</h4>
             <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9em;">請填寫完整的個人資訊以進行審核，標示 <span class="required">*</span> 為必填欄位。</p>
             
             <div class="form-grid">
