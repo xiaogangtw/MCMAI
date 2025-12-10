@@ -126,7 +126,7 @@
         .bank-connect-btn.connected { background: #ECFDF5; border: 2px solid #10B981; color: #065F46; cursor: default; }
         .bank-connect-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 
-        /* --- 特徵工程展示區塊 (New) --- */
+        /* --- 特徵工程展示區塊 --- */
         .feature-extraction-panel {
             display: none; /* Initial hidden */
             margin-top: 20px;
@@ -186,7 +186,7 @@
         .ft-good { background: #D1FAE5; color: #065F46; border: 1px solid #10B981; }
         .ft-warn { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; }
 
-        /* 資金用途表格 (New) */
+        /* 資金用途表格 */
         .funds-table-container {
             grid-column: 1 / -1; margin-top: 20px; display: none; /* Initially hidden */
             background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
@@ -371,9 +371,13 @@
                     <label>行動電話 <span class="required">*</span></label>
                     <input type="tel" id="inputPhone" placeholder="09xx-xxx-xxx" required>
                 </div>
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label>常用電子信箱 (Email) <span class="required">*</span></label>
                     <input type="email" id="inputEmail" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>社群帳號連結 (FB/IG/TikTok)</label>
+                    <input type="text" id="inputSocial" placeholder="請輸入個人主頁連結">
                 </div>
 
                 <div class="form-section-title">
@@ -854,6 +858,7 @@
         const reasonSelect = document.getElementById('inputReason');
         const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
         const detail = document.getElementById('inputDetail').value || "無詳細說明";
+        const social = document.getElementById('inputSocial').value || "未提供 (將進行模糊搜尋)";
 
         if(amount <= 0) { alert("請輸入有效的貸款金額"); return; }
 
@@ -877,7 +882,7 @@
             const featureComments = [
                 `<span class="feature-tag ft-good">匯款特徵</span> 過去12個月匯款頻率穩定 (Weekly)，無中斷紀錄`,
                 `<span class="feature-tag ft-good">消費特徵</span> 必要生活支出佔比 45%，無博弈或異常大額消費`,
-                `<span class="feature-tag ft-warn">社群特徵</span> 近期社群貼文情緒平穩，但地點變動較頻繁`
+                `<span class="feature-tag ft-warn">社群特徵</span> 已分析連結內容，近期貼文情緒平穩，但地點變動較頻繁`
             ];
 
             if (!affordable) {
@@ -906,6 +911,7 @@
                 <div style="margin-bottom:10px;">
                     <span class="report-label">申請人：</span>${name} (${job})<br>
                     <span class="report-label">年收入申報：</span>NT$${Number(income).toLocaleString()}<br>
+                    <span class="report-label">社群帳號：</span>${social}<br>
                     <span class="report-label">申請方案：</span>NT$${amount.toLocaleString()} / ${term} 期<br>
                 </div>
                 <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
@@ -927,13 +933,8 @@
             tbody.innerHTML = `
                 <tr>
                     <td>${reasonText} (主要用途)</td>
-                    <td class="money-text">$${Math.floor(amount * 0.8).toLocaleString()}</td>
+                    <td class="money-text">$${amount.toLocaleString()}</td>
                     <td>${detail}</td>
-                </tr>
-                <tr>
-                    <td>雜支 / 手續費</td>
-                    <td class="money-text">$${Math.floor(amount * 0.2).toLocaleString()}</td>
-                    <td>平台服務費與匯款準備金</td>
                 </tr>
             `;
             document.getElementById('fundsTotal').innerText = "$" + amount.toLocaleString();
