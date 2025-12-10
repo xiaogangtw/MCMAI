@@ -21,10 +21,6 @@
             --text-main: #1F2937;
             --text-sub: #6B7280;
             --border-color: #E5E7EB;
-
-            /* Chat Widget */
-            --chat-primary: #3B82F6;
-            --chat-bg: #1F2937;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -94,14 +90,13 @@
         .product-section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
         .bg-white { background-color: #fff; }
 
-        /* 模擬表單樣式 */
         .risk-simulation-container {
             background: #fff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color); padding: 40px; margin-top: 30px;
         }
         .form-section-title {
             grid-column: 1 / -1; font-size: 1.1em; font-weight: 700; color: #374151; 
-            margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #F3F4F6;
+            margin-top: 30px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #F3F4F6;
             display: flex; align-items: center; gap: 8px;
         }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -119,7 +114,7 @@
         
         /* 檔案上傳區塊 */
         .upload-box {
-            border: 2px dashed #D1D5DB; border-radius: 8px; padding: 30px; text-align: center;
+            border: 2px dashed #D1D5DB; border-radius: 8px; padding: 20px; text-align: center;
             background: #F9FAFB; cursor: pointer; transition: 0.3s;
         }
         .upload-box:hover { border-color: var(--color-primary); background: #EFF6FF; }
@@ -135,181 +130,101 @@
         .bank-connect-btn.connected { background: #ECFDF5; border: 2px solid #10B981; color: #065F46; cursor: default; }
         .bank-connect-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 
-        /* --- 特徵工程展示區塊 --- */
+        /* KYC Button */
+        .kyc-btn {
+            width: 100%; padding: 15px; background: #EFF6FF; border: 1px solid #BFDBFE;
+            color: #1D4ED8; font-weight: 700; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;
+        }
+        .kyc-btn:hover { background: #DBEAFE; }
+        .kyc-btn.signed { background: #ECFDF5; border-color: #10B981; color: #065F46; }
+
+        /* KYC Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-card {
+            background: #fff; width: 90%; max-width: 500px; border-radius: 16px;
+            padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column;
+        }
+        .modal-title { font-size: 1.25em; font-weight: 800; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+        .term-scroll-box {
+            height: 250px; overflow-y: scroll; background: #F9FAFB; border: 1px solid #E5E7EB;
+            padding: 15px; font-size: 0.9em; color: #4B5563; border-radius: 8px; margin-bottom: 15px;
+        }
+        .term-action { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .modal-close-btn {
+            background: var(--color-primary); color: #fff; border: none; padding: 10px; width: 100%;
+            border-radius: 8px; font-weight: 700; cursor: pointer;
+        }
+        .modal-close-btn:disabled { background: #D1D5DB; cursor: not-allowed; }
+
+        /* --- 特徵工程 --- */
         .feature-extraction-panel {
-            display: none; /* Initial hidden */
-            margin-top: 20px;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 20px;
-            animation: fadeIn 0.5s ease-in-out;
+            display: none; margin-top: 20px; background: #F8FAFC; border: 1px solid #E2E8F0;
+            border-radius: 12px; padding: 20px; animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .feature-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;
-        }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .feature-card {
             background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px;
             font-size: 0.9em; display: flex; align-items: start; gap: 10px;
-            transition: 0.3s; opacity: 0.5; /* Initial dimmed */
+            transition: 0.3s; opacity: 0.5;
         }
         .feature-card.scanning { border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); opacity: 1; }
         .feature-card.done { border-color: var(--color-secondary); opacity: 1; }
-        .feature-icon { font-size: 1.2em; }
-        .feature-content h5 { font-size: 0.95em; font-weight: 700; margin-bottom: 2px; color: #1E293B; }
-        .feature-content p { font-size: 0.8em; color: #64748B; line-height: 1.3; }
-
+        
         .action-btn {
             background: var(--color-primary); color: #fff; border: none; padding: 14px 28px;
             font-size: 1.1em; font-weight: 700; border-radius: 8px; cursor: pointer;
             box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3); transition: 0.3s;
         }
         .action-btn:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; }
-        .action-btn:hover:not(:disabled) { transform: translateY(-2px); background: var(--color-primary-dark); }
-
-        /* 風控結果儀表板 */
+        
+        /* Dashboard & Table */
         .risk-dashboard {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; opacity: 0.5; pointer-events: none; transition: 0.5s;
         }
         .risk-dashboard.active { opacity: 1; pointer-events: auto; }
-        
         .risk-card {
             background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color);
             text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 200px;
         }
-        .risk-card h3 { color: var(--text-sub); font-size: 1em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .score-val { font-size: 3.5em; font-weight: 800; line-height: 1; }
-        .pfcf-val { font-size: 2.5em; font-weight: 800; color: var(--text-main); }
         
         .summary-report {
             grid-column: 1 / -1; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 25px;
             border-radius: 12px; text-align: left;
         }
-        .report-label { font-weight: bold; color: #4B5563; }
-        .report-value { color: #111827; }
-        .feature-tag {
-            display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 5px; margin-bottom: 5px;
-        }
-        .ft-good { background: #D1FAE5; color: #065F46; border: 1px solid #10B981; }
-        .ft-warn { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; }
-
-        /* 資金用途表格 */
-        .funds-table-container {
-            grid-column: 1 / -1; margin-top: 20px; display: none; /* Initially hidden */
-            background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
-            animation: fadeIn 0.8s ease-in-out;
-            overflow-x: auto; /* 確保內容過長時可橫向捲動 */
-        }
-        .custom-table { width: 100%; border-collapse: collapse; min-width: 600px; /* 強制最小寬度以觸發捲動 */ }
         
-        /* 標題列樣式 (移至 thead 內) */
+        /* Funds Table */
+        .funds-table-container {
+            grid-column: 1 / -1; margin-top: 20px; display: none;
+            background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out; overflow-x: auto;
+        }
+        .custom-table { width: 100%; border-collapse: collapse; min-width: 600px; }
         .table-title-row th {
             background: #ECFDF5; color: #065F46; padding: 15px 20px; font-weight: 700; 
             border-bottom: 1px solid #D1FAE5; text-align: left;
         }
-        .table-title-content { display: flex; align-items: center; gap: 8px; }
-
         .custom-table th, .custom-table td { padding: 15px; text-align: left; border-bottom: 1px solid #F3F4F6; }
         .col-header { color: #6B7280; font-size: 0.9em; font-weight: 600; background: #F9FAFB; }
-        .custom-table td { color: #374151; font-size: 0.95em; }
         .money-text { font-family: 'Courier New', monospace; font-weight: 700; color: #10B981; }
 
-        /* =========================================
-           PRODUCT 2: 多語言智能客服
-           ========================================= */
-        .cs-layout { display: flex; gap: 50px; align-items: center; }
-        .cs-content { flex: 1; }
-        .cs-visual { flex: 1; position: relative; }
-
-        .feature-list { list-style: none; margin: 30px 0; }
-        .feature-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
-        .check-icon { 
-            background: #EDE9FE; color: #5B21B6; width: 24px; height: 24px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;
-        }
-        
-        /* 模擬手機畫面 */
-        .phone-mockup {
-            width: 300px; height: 580px; background: #111827; border-radius: 40px; margin: 0 auto;
-            border: 8px solid #374151; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-        }
-        .phone-screen {
-            background: #F3F4F6; width: 100%; height: 100%; padding: 20px; display: flex; flex-direction: column;
-        }
-        .chat-preview-bubble {
-            background: #fff; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px;
-            font-size: 0.85em; box-shadow: 0 2px 4px rgba(0,0,0,0.05); width: 85%;
-        }
-        .chat-preview-bubble.right {
-            background: var(--color-primary); color: #fff; align-self: flex-end; border-radius: 12px 12px 0 12px;
-        }
-        
-        /* 讓按鈕置中的容器 */
-        .btn-center-wrapper { text-align: center; margin-top: 30px; }
-
+        /* Chat Widget & Others */
         .btn-try-chat {
             background: var(--color-accent); color: #fff; padding: 12px 24px; border-radius: 8px;
             font-weight: 700; border: none; cursor: pointer; font-size: 1.1em;
-            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); transition: 0.3s;
-            display: inline-block;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); transition: 0.3s; display: inline-block;
         }
-        .btn-try-chat:hover { background: #7C3AED; transform: translateY(-2px); }
-
-        /* =========================================
-           About & Team
-           ========================================= */
-        .about-content-wrapper { text-align: center; }
-        .video-container {
-            position: relative; width: 100%; max-width: 900px; margin: 0 auto 60px;
-            padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15); background-color: #000;
-        }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-        .team-title {
-            font-size: 2em; color: var(--text-main); margin-bottom: 40px;
-            font-weight: 700; letter-spacing: 2px; position: relative; display: inline-block;
-        }
-        .team-title::after {
-            content: ''; display: block; width: 60px; height: 4px; background-color: var(--color-primary);
-            margin: 10px auto 0; border-radius: 2px;
-        }
-        
-        .team-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
-            max-width: 1200px; margin: 0 auto;
-        }
-        .team-card {
-            background: #FFFFFF; border-radius: 20px; padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--border-color); position: relative; overflow: hidden;
-        }
-        .team-card:hover {
-            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
-            border-color: var(--color-primary);
-        }
-        .member-avatar-box { width: 150px; height: 150px; margin: 0 auto 25px; }
-        .member-avatar {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
-            border: 4px solid var(--color-bg-light); box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .member-name { font-size: 1.8em; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
-        .member-title {
-            color: var(--color-primary); font-weight: 700; font-size: 0.95em; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 20px; background: rgba(59, 130, 246, 0.1);
-            display: inline-block; padding: 5px 15px; border-radius: 20px;
-        }
-        .member-desc { color: var(--text-sub); font-size: 1em; line-height: 1.6; }
-
-        /* =========================================
-           Chat Widget Overlay (優化尺寸)
-           ========================================= */
         .chat-widget-window {
-            position: fixed; bottom: 90px; right: 30px; 
-            width: 340px; height: 550px; /* 電腦版縮小尺寸 */
-            max-height: 80vh;
+            position: fixed; bottom: 90px; right: 30px; width: 340px; height: 550px;
             background: #1F2937; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             display: flex; flex-direction: column; z-index: 9999; 
             transform: translateY(20px); opacity: 0; visibility: hidden; transition: 0.3s;
@@ -317,67 +232,64 @@
         .chat-widget-window.active { transform: translateY(0); opacity: 1; visibility: visible; }
         .chat-header { background: #111827; padding: 15px; color: #fff; display: flex; justify-content: space-between; border-radius: 16px 16px 0 0; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #374151; }
-        
         .msg { padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 0.9em; max-width: 85%; }
         .msg.bot { background: #4B5563; color: #fff; align-self: flex-start; }
         .msg.user { background: var(--color-primary); color: #fff; margin-left: auto; }
-        
         .close-chat { cursor: pointer; font-size: 1.5em; background: none; border: none; color: #9CA3AF; }
 
-        /* =========================================
-           RWD 響應式優化 (手機版樣式)
-           ========================================= */
+        /* Demo Button Style */
+        .demo-btn {
+            background: #F3F4F6; color: #4B5563; border: 1px solid #D1D5DB;
+            padding: 5px 12px; border-radius: 15px; font-size: 0.85em; cursor: pointer;
+            margin-left: 10px; transition: 0.2s; font-weight: 600;
+        }
+        .demo-btn:hover { background: #E5E7EB; color: #111827; }
+
+        /* RWD */
         @media (max-width: 768px) {
-            /* 導覽列優化 */
             nav { height: auto; flex-direction: column; padding: 15px 0; }
-            .nav-links { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-            .nav-links a { margin: 0; font-size: 0.95em; }
-            
-            /* Hero 區塊優化 */
-            .hero { padding: 50px 0; }
-            .hero h1 { font-size: 2em; line-height: 1.3; }
+            .nav-links { margin-top: 15px; gap: 15px; }
+            .hero h1 { font-size: 2em; }
             .market-count-val { font-size: 3.2em; }
-            .hero p { font-size: 1.1em; padding: 0 10px; }
-            
-            /* 通用區塊間距縮減 */
-            .product-section { padding: 50px 0; }
-            .section-title { font-size: 1.8em; }
-            p.section-desc { font-size: 1em; }
-
-            /* 表單優化 */
-            .risk-simulation-container { padding: 25px 20px; }
             .form-grid, .feature-grid { grid-template-columns: 1fr; }
-            
-            .form-group input, .form-group select, .cta-button { font-size: 16px; } 
-            .cta-button { width: 100%; max-width: 300px; padding: 12px; }
-
-            /* 功能區塊 RWD */
             .risk-dashboard { grid-template-columns: 1fr; }
             .cs-layout { flex-direction: column; }
             .team-grid { grid-template-columns: 1fr; }
-            
-            /* Chat Widget RWD (手機版高度限制與收納優化) */
-            .chat-widget-window { 
-                width: 90%; 
-                right: 5%; 
-                bottom: 20px; 
-                height: 60vh; /* 降低高度 */
-                max-height: 500px;
-            }
-            
-            /* 資金用途表格橫向捲動提示 */
-            .custom-table th, .custom-table td { padding: 10px; font-size: 0.9em; white-space: nowrap; }
+            .chat-widget-window { width: 90%; right: 5%; bottom: 20px; height: 60vh; }
         }
     </style>
 </head>
 <body>
 
+<div id="kycModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-title">用戶實名認證授權條款 (KYC)</div>
+        <div class="term-scroll-box" id="termBox" onscroll="checkScroll()">
+            <p><strong>個人資料蒐集、處理及利用告知事項</strong></p>
+            <p>本公司（以下簡稱「我們」）為辦理金融科技服務、身分驗證（Know Your Customer, KYC）、風險控管及相關業務需求，將依據個人資料保護法規定，蒐集、處理及利用您的個人資料。請您詳細閱讀以下內容：</p>
+            <br>
+            <p>1. <strong>蒐集目的：</strong>包含但不限於身分確認、徵信、洗錢防制、聯絡通知及其他金融服務相關業務。</p>
+            <p>2. <strong>個人資料類別：</strong>包括姓名、身分證字號(或居留證號)、出生年月日、聯絡方式、影像資料、財務狀況等。</p>
+            <p>3. <strong>利用期間與地區：</strong>自您同意起至業務終止或法定保存年限屆滿為止；利用地區為本公司營運範圍。</p>
+            <p>4. <strong>您的權利：</strong>您可依法請求查詢、閱覽、製給複製本、補充或更正、停止蒐集處理利用或刪除。</p>
+            <br>
+            <p><strong>授權聲明：</strong></p>
+            <p>本人同意提供上述資料，並授權貴公司透過數位方式進行身分驗證。本人保證所提供之資料均為真實，若有不實願負法律責任。</p>
+            <br>
+            <p style="color:red">（請捲動至此底部以啟用同意選項）</p>
+        </div>
+        <div class="term-action">
+            <input type="checkbox" id="kycCheckbox" disabled>
+            <label for="kycCheckbox" style="cursor: pointer; user-select: none;">我已詳細閱讀並同意上述條款</label>
+        </div>
+        <button id="kycConfirmBtn" class="modal-close-btn" disabled onclick="confirmKYC()">確認授權</button>
+    </div>
+</div>
+
 <header>
     <div class="container">
         <nav>
-            <a href="#" class="logo">
-                MCMAI<span>移貸宗師</span>
-            </a>
+            <a href="#" class="logo">MCMAI<span>移貸宗師</span></a>
             <div class="nav-links">
                 <a href="#product-risk">AI 風控引擎</a>
                 <a href="#product-cs">智能客服系統</a>
@@ -391,10 +303,8 @@
     <div class="container">
         <div class="market-count-label">截止目前全台外籍移工總人數</div>
         <div id="marketCount" class="market-count-val">858,939</div>
-        
         <h1 style="margin-top: 20px;">移工金融的雙核心引擎</h1>
         <p>我們提供「精準風控模型」與「多語言溝通系統」，協助 B 端企業安全、高效地開發移工藍海市場。</p>
-        
         <a href="#product-risk" class="cta-button">探索解決方案</a>
     </div>
 </section>
@@ -405,8 +315,8 @@
         <h2 class="section-title">AI 智能風控 API</h2>
         <p class="section-desc">透過 Open Banking 聚合「六大替代數據」，並透過特徵工程精準運算，解決傳統聯徵無法覆蓋的信用隱形痛點。</p>
 
-        <div class="risk-simulation-container">
-            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料</h4>
+        <div class="risk-simulation-container" id="formContainer">
+            <h4 style="margin-bottom: 10px; color: var(--text-main); font-size: 1.3em;">Step 1: 申請人資料模擬 (API Input)</h4>
             <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9em;">
                 請填寫完整的個人資訊以進行審核，<span style="white-space: nowrap;">標示 <span class="required">*</span> 為必填欄位。</span>
             </p>
@@ -425,13 +335,26 @@
                     <label>行動電話 <span class="required">*</span></label>
                     <input type="tel" id="inputPhone" placeholder="09xx-xxx-xxx" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group full-width">
                     <label>常用電子信箱 (Email) <span class="required">*</span></label>
                     <input type="email" id="inputEmail" placeholder="example@email.com" required>
                 </div>
+
                 <div class="form-group">
-                    <label>社群帳號連結 (FB/IG/TikTok)</label>
-                    <input type="text" id="inputSocial" placeholder="請輸入個人主頁連結">
+                    <label>Facebook 連結</label>
+                    <input type="text" id="inputFB" placeholder="https://facebook.com/...">
+                </div>
+                <div class="form-group">
+                    <label>Instagram 帳號</label>
+                    <input type="text" id="inputIG" placeholder="@username">
+                </div>
+                <div class="form-group">
+                    <label>TikTok 帳號</label>
+                    <input type="text" id="inputTikTok" placeholder="@tiktok_user">
+                </div>
+                <div class="form-group">
+                    <label>Threads / 其他</label>
+                    <input type="text" id="inputThreads" placeholder="其他社群連結">
                 </div>
 
                 <div class="form-section-title">
@@ -447,6 +370,17 @@
                     <input type="tel" id="inputEmergencyPhone" required>
                 </div>
 
+                <div class="form-section-title" style="color: var(--color-primary-dark);">
+                    <i data-lucide="file-check-2"></i> KYC 用戶實名認證授權
+                </div>
+                <div class="full-width">
+                    <p style="font-size: 0.9em; color: var(--text-sub); margin-bottom: 10px;">請點擊下方按鈕閱讀完整條款並進行電子簽署。</p>
+                    <button id="btnOpenKYC" class="kyc-btn" onclick="openKYC()">
+                        <i data-lucide="scroll-text"></i> 閱讀並簽署 KYC 授權條款
+                    </button>
+                    <input type="hidden" id="kycSigned" value="false">
+                </div>
+
                 <div class="form-section-title">
                     <i data-lucide="dollar-sign"></i> 財務狀況與貸款需求
                 </div>
@@ -458,6 +392,17 @@
                 <div class="form-group">
                     <label>年收入 (TWD) <span class="required">*</span></label>
                     <input type="number" id="inputIncome" placeholder="例如：800000">
+                </div>
+
+                <div class="full-width" style="margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="privateLoanCheck" onchange="toggleLoanUpload()" style="width: 18px; height: 18px;">
+                        <label for="privateLoanCheck" style="font-weight: 600; color: #374151;">是否有其他民間借貸?</label>
+                    </div>
+                </div>
+                <div class="full-width" id="privateLoanUploadBox" style="display: none; background: #FFF7ED; padding: 15px; border: 1px dashed #F97316; border-radius: 8px;">
+                    <label style="display:block; font-size: 0.9em; color: #9A3412; margin-bottom: 5px;">請上傳清償證明或借貸合約 (File Upload):</label>
+                    <input type="file" style="font-size: 0.9em;">
                 </div>
 
                 <div class="form-group">
@@ -500,7 +445,6 @@
                     <div class="upload-box" id="uploadArea">
                         <i data-lucide="image" class="upload-icon" style="width: 40px; height: 40px; margin: 0 auto 10px; display: block;"></i>
                         <p style="color: var(--color-primary); font-weight: 600;">點擊上傳文件</p>
-                        <p style="font-size: 0.8em; color: var(--text-sub);">支援 PNG, JPG, PDF (Max 10MB)</p>
                         <input type="file" id="fileInput" style="display: none;">
                         <p id="fileName" style="font-size: 0.9em; color: var(--color-secondary); margin-top: 10px; font-weight: bold;"></p>
                     </div>
@@ -524,55 +468,17 @@
                     <span id="scanPercent" style="font-weight:bold; color:var(--color-primary);">0%</span>
                 </div>
                 <div class="feature-grid">
-                    <div class="feature-card" id="feat-1">
-                        <div class="feature-icon">💰</div>
-                        <div class="feature-content">
-                            <h5>帳戶行為特徵</h5>
-                            <p>薪資轉帳規律性、月底餘額波動</p>
-                        </div>
-                    </div>
-                    <div class="feature-card" id="feat-2">
-                        <div class="feature-icon">🌏</div>
-                        <div class="feature-content">
-                            <h5>匯款資料特徵</h5>
-                            <p>匯款頻率(週/月)、匯款金額趨勢</p>
-                        </div>
-                    </div>
-                    <div class="feature-card" id="feat-3">
-                        <div class="feature-icon">🛒</div>
-                        <div class="feature-content">
-                            <h5>簽帳卡消費分析</h5>
-                            <p>必要支出辨識、衝動型消費比例</p>
-                        </div>
-                    </div>
-                    <div class="feature-card" id="feat-4">
-                        <div class="feature-icon">🧾</div>
-                        <div class="feature-content">
-                            <h5>民間借貸足跡</h5>
-                            <p>既有負債清償紀律</p>
-                        </div>
-                    </div>
-                    <div class="feature-card" id="feat-5">
-                        <div class="feature-icon">📱</div>
-                        <div class="feature-content">
-                            <h5>社群語意分析</h5>
-                            <p>生活穩定度訊號、潛在風險偵測</p>
-                        </div>
-                    </div>
-                    <div class="feature-card" id="feat-6">
-                        <div class="feature-icon">🪪</div>
-                        <div class="feature-content">
-                            <h5>身份與法遵</h5>
-                            <p>居留證(ARC)效期、工作合約存續</p>
-                        </div>
-                    </div>
+                    <div class="feature-card" id="feat-1"><div class="feature-icon">💰</div><div class="feature-content"><h5>帳戶行為特徵</h5><p>薪資轉帳規律性</p></div></div>
+                    <div class="feature-card" id="feat-2"><div class="feature-icon">🌏</div><div class="feature-content"><h5>匯款資料特徵</h5><p>匯款頻率與趨勢</p></div></div>
+                    <div class="feature-card" id="feat-3"><div class="feature-icon">🛒</div><div class="feature-content"><h5>簽帳卡消費分析</h5><p>必要支出辨識</p></div></div>
+                    <div class="feature-card" id="feat-4"><div class="feature-icon">🧾</div><div class="feature-content"><h5>民間借貸足跡</h5><p>既有負債清償紀律</p></div></div>
+                    <div class="feature-card" id="feat-5"><div class="feature-icon">📱</div><div class="feature-content"><h5>社群語意分析</h5><p>潛在風險偵測</p></div></div>
+                    <div class="feature-card" id="feat-6"><div class="feature-icon">🪪</div><div class="feature-content"><h5>身份與法遵</h5><p>居留證效期查核</p></div></div>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <button id="btnRunInference" class="action-btn" onclick="runInference()" disabled>
-                    Step 2: 啟動 AI 風控推論
-                </button>
+                <button id="btnRunInference" class="action-btn" onclick="runInference()" disabled>Step 2: 啟動 AI 風控推論</button>
             </div>
         </div>
 
@@ -587,42 +493,64 @@
                 <div id="pfcValue" class="pfcf-val">--</div>
                 <p style="color: var(--text-sub); margin-top: 10px;">NTD / 月 (建議額度上限)</p>
             </div>
-            
             <div id="summaryBox" class="summary-report">
-                <h4 style="color: var(--text-main); margin-bottom: 15px; display:flex; align-items:center;">
-                    📝 AI 風控總審核報告 
-                    <span style="font-size:0.7em; background:#E5E7EB; padding:2px 8px; border-radius:10px; margin-left:10px;">Auto-Generated</span>
-                </h4>
+                <h4 style="color: var(--text-main); margin-bottom: 15px;">📝 AI 風控總審核報告</h4>
                 <div id="summaryText" style="font-size: 0.95em; color: #4B5563; line-height: 1.7;"></div>
             </div>
-
             <div id="fundsTable" class="funds-table-container">
                 <table class="custom-table">
                     <thead>
                         <tr class="table-title-row">
                             <th colspan="3">
-                                <div class="table-title-content">
-                                    <i data-lucide="file-text"></i>
-                                    <span>核定資金用途細項 (Funds Usage)</span>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="file-text"></i><span>核定資金用途細項</span>
                                 </div>
                             </th>
                         </tr>
-                        <tr>
-                            <th class="col-header" width="30%">項目</th>
-                            <th class="col-header" width="30%">金額 (TWD)</th>
-                            <th class="col-header" width="40%">說明</th>
-                        </tr>
+                        <tr><th class="col-header">項目</th><th class="col-header">金額 (TWD)</th><th class="col-header">說明</th></tr>
                     </thead>
-                    <tbody id="fundsTableBody">
-                        </tbody>
+                    <tbody id="fundsTableBody"></tbody>
                     <tfoot style="background: #F9FAFB; font-weight: bold;">
-                        <tr>
-                            <td>總計</td>
-                            <td id="fundsTotal" class="money-text" style="color: var(--color-primary-dark);"></td>
-                            <td></td>
-                        </tr>
+                        <tr><td>總計</td><td id="fundsTotal" class="money-text"></td><td></td></tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="product-section">
+    <div class="container">
+        <div class="about-content-wrapper">
+            <h2 class="section-title">
+                關於移貸宗師
+                <button onclick="fillDemoData()" class="demo-btn">
+                    📝 載入範例 (Demo Data)
+                </button>
+            </h2>
+            <p class="section-desc" style="margin: 0 auto 40px;">我們是一群致力於用 AI 技術解決「金融排斥」問題的創新團隊，協助夥伴拓展藍海市場。</p>
+            <div class="team-wrapper">
+                <div class="team-title">宗師殿堂</div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-avatar-box"><img src="./huang.png" alt="黃聖剛" class="member-avatar"></div>
+                        <div class="member-name">黃聖剛</div>
+                        <div class="member-title">CEO | 執行長</div>
+                        <p class="member-desc">擘畫「移貸宗師」商業版圖，於金融市場中，運用替代數據開闢普惠金融的藍海。</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-avatar-box"><img src="./livingroom.png" alt="李旻儒" class="member-avatar"></div>
+                        <div class="member-name">李旻儒</div>
+                        <div class="member-title">CTO | 技術長</div>
+                        <p class="member-desc">負責本計畫之 AI 信用評估模型建置、PFCF(自由現金流量)運算邏輯、替代資料分析機制。</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-avatar-box"><img src="./yixuan.png" alt="陳逸軒" class="member-avatar"></div>
+                        <div class="member-name">陳逸軒</div>
+                        <div class="member-title">CPO | 產品長</div>
+                        <p class="member-desc">負責市場需求分析、使用者流程設計與 B2B 合作模式規劃，優化跨文化介面體驗。</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -633,470 +561,211 @@
         <div class="cs-layout">
             <div class="cs-content">
                 <span class="section-tag tag-chat">Product 02</span>
-                <h2 class="section-title">B2B 多語言智能客服系統</h2>
-                <p class="section-desc">這不只是一個聊天機器人，而是您專屬的「多語言業務代理人」。解決 B 端機構與移工之間的語言隔閡，大幅降低客服人力成本。</p>
-                
-                <ul class="feature-list">
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>全天候自動化服務</strong>
-                            <p class="text-sm text-gray-500">24/7 處理貸款諮詢、餘額查詢、還款提醒，無須休息。</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>原生語言支援</strong>
-                            <p class="text-sm text-gray-500">精通 越南語 (Tiếng Việt)、印尼語 (Bahasa)、泰語、英語與中文。</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="check-icon">✓</div>
-                        <div>
-                            <strong>RAG 知識庫技術</strong>
-                            <p class="text-sm text-gray-500">基於您提供的合規文件回答，準確度高，避免 AI 幻覺。</p>
-                        </div>
-                    </li>
-                </ul>
-
+                <h2 class="section-title">B2B 多語言智能客服</h2>
                 <div class="btn-center-wrapper">
-                    <button class="btn-try-chat" onclick="openChatDemo()">
-                        💬 立即體驗多語言對話 (Live Demo)
-                    </button>
+                    <button class="btn-try-chat" onclick="openChatDemo()">💬 立即體驗多語言對話</button>
                 </div>
             </div>
-
             <div class="cs-visual">
                 <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div style="text-align: center; margin-bottom: 20px; color: #6B7280; font-size: 0.8em;">AI Assistant</div>
-                        
-                        <div class="chat-preview-bubble">
-                            Halo! Bagaimana cara mengajukan pinjaman? 🇮🇩
-                            <br><span style="font-size:0.7em; color:#9CA3AF;">(印尼語：如何申請貸款？)</span>
-                        </div>
-                        <div class="chat-preview-bubble right">
-                            您可以透過我們的 APP 提交居留證照片... (AI 自動回覆)
-                        </div>
-                        <div class="chat-preview-bubble">
-                            Tôi muốn kiểm tra số dư? 🇻🇳
-                            <br><span style="font-size:0.7em; color:#9CA3AF;">(越南語：我想查餘額)</span>
-                        </div>
-                        <div class="chat-preview-bubble right">
-                            好的，您的本期餘額為...
-                        </div>
-                    </div>
-                </div>
-                <div style="position: absolute; width: 300px; height: 300px; background: #EDE9FE; border-radius: 50%; top: 50px; right: -50px; z-index: -1;"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="about" class="product-section">
-    <div class="container">
-        <div class="about-content-wrapper">
-            <h2 class="section-title">關於移貸宗師</h2>
-            <p class="section-desc" style="margin: 0 auto 40px;">我們是一群致力於用 AI 技術解決「金融排斥」問題的創新團隊，協助夥伴拓展藍海市場。</p>
-            
-            <div class="video-container">
-                <iframe 
-                  width="560" 
-                  height="315" 
-                  src="https://www.youtube.com/embed/Qn9vKM_2hAA" 
-                  title="MCMAI 團隊介紹" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="team-wrapper">
-                <div class="team-title">宗師殿堂</div>
-                
-                <div class="team-grid">
-                    <div class="team-card">
-                        <div class="member-avatar-box">
-                            <img src="./huang.png" alt="黃聖剛" class="member-avatar">
-                        </div>
-                        <div class="member-name">黃聖剛</div>
-                        <div class="member-title">CEO | 執行長</div>
-                        <p class="member-desc">
-                            擘畫「移貸宗師」商業版圖，於金融市場中，運用替代數據開闢普惠金融的藍海。
-                        </p>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="member-avatar-box">
-                            <img src="./livingroom.png" alt="李旻儒" class="member-avatar">
-                        </div>
-                        <div class="member-name">李旻儒</div>
-                        <div class="member-title">CTO | 技術長</div>
-                        <p class="member-desc">
-                            負責本計畫之 AI 信用評估模型建置、PFCF(自由現金流量)運算邏輯、替代資料分析機制。
-                        </p>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="member-avatar-box">
-                            <img src="./yixuan.png" alt="陳逸軒" class="member-avatar">
-                        </div>
-                        <div class="member-name">陳逸軒</div>
-                        <div class="member-title">CPO | 產品長</div>
-                        <p class="member-desc">
-                            負責市場需求分析、使用者流程設計與 B2B 合作模式規劃，優化跨文化介面體驗。
-                        </p>
-                    </div>
+                    <div class="phone-screen"><div style="text-align:center; color:#999; margin-bottom:20px;">AI Assistant</div>
+                    <div class="chat-preview-bubble">Halo! Bagaimana cara mengajukan pinjaman? 🇮🇩</div>
+                    <div class="chat-preview-bubble right">您可以透過我們的 APP 提交...</div></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<footer style="background: #111827; color: #fff; padding: 40px 0; text-align: center;">
-    <div class="container">
-        <p>MIGRANT MASTER_AI | 專注移工金融科技創新</p>
-        <p style="color: #9CA3AF; font-size: 0.9em; margin-top: 10px;">Email: s310751030@gm.ntpu.edu.tw</p>
-    </div>
-</footer>
 
 <div id="chatWidget" class="chat-widget-window">
-    <div class="chat-header">
-        <span>AI 借貸智慧客服 (Demo)</span>
-        <button class="close-chat" onclick="closeChatDemo()">&times;</button>
-    </div>
-    <div id="messagesContainer" class="chat-messages">
-        </div>
-    <div style="padding: 10px; background: #374151; overflow-x: auto; white-space: nowrap;" id="quickChips"></div>
-    <div class="input-toolbar" style="padding: 10px; background: #111827;">
-        <div style="margin-bottom: 5px;">
-            <select id="langSelect" style="background:#374151; color:#fff; border:none; padding:2px; border-radius:4px;">
-                <option value="zh-TW">繁體中文</option>
-                <option value="vi">Tiếng Việt</option>
-                <option value="id">Bahasa Indonesia</option>
-                <option value="th">ภาษาไทย</option> <option value="en">English</option>
-            </select>
-        </div>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" id="chatInput" placeholder="輸入問題..." style="flex:1; padding:8px; border-radius:4px; border:none; color: white;">
-            <button onclick="handleSend()" style="background:var(--color-primary); color:#fff; border:none; padding:0 15px; border-radius:4px; cursor:pointer;">Send</button>
-        </div>
+    <div class="chat-header"><span>AI 借貸智慧客服 (Demo)</span><button class="close-chat" onclick="closeChatDemo()">&times;</button></div>
+    <div id="messagesContainer" class="chat-messages"></div>
+    <div style="padding: 10px;" id="quickChips"></div>
+    <div class="input-toolbar" style="padding: 10px; background: #111827; display:flex; gap:10px;">
+        <input type="text" id="chatInput" style="flex:1; padding:5px;" placeholder="...">
+        <button onclick="handleSend()" style="background:var(--color-primary); color:#fff; border:none; padding:0 10px;">Send</button>
     </div>
 </div>
 
 <script>
-    // 初始化圖標
     lucide.createIcons();
-
-    /* ===========================
-       Logic: Bank Auth & File Upload
-       =========================== */
-    const authCheck = document.getElementById('authCheck');
-    const connectBtn = document.getElementById('btnConnectBank');
     
-    // 監聽勾選狀態
-    authCheck.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            connectBtn.disabled = false;
-            document.getElementById('bankText').innerText = "同意授權並連結銀行帳戶 (Open Banking)";
-        } else {
-            connectBtn.disabled = true;
-            document.getElementById('bankText').innerText = "請先勾選同意以連結銀行帳戶";
+    // --- 1. KYC Modal Logic ---
+    const kycModal = document.getElementById('kycModal');
+    const termBox = document.getElementById('termBox');
+    const kycCheckbox = document.getElementById('kycCheckbox');
+    const kycConfirmBtn = document.getElementById('kycConfirmBtn');
+    const btnOpenKYC = document.getElementById('btnOpenKYC');
+    const kycSignedInput = document.getElementById('kycSigned');
+
+    function openKYC() {
+        kycModal.classList.add('open');
+        // Reset scroll
+        termBox.scrollTop = 0;
+        kycCheckbox.disabled = true;
+        kycConfirmBtn.disabled = true;
+        kycCheckbox.checked = false;
+    }
+
+    function checkScroll() {
+        // 判斷是否捲動到底部 (容許 5px 誤差)
+        if (termBox.scrollTop + termBox.clientHeight >= termBox.scrollHeight - 5) {
+            kycCheckbox.disabled = false;
         }
+    }
+
+    kycCheckbox.addEventListener('change', (e) => {
+        kycConfirmBtn.disabled = !e.target.checked;
     });
 
-    // 檔案上傳模擬
+    function confirmKYC() {
+        kycModal.classList.remove('open');
+        // 更新按鈕狀態
+        btnOpenKYC.innerHTML = '<i data-lucide="check-circle"></i> 已完成 KYC 授權簽署';
+        btnOpenKYC.classList.add('signed');
+        kycSignedInput.value = "true";
+        lucide.createIcons(); // 重繪 icon
+    }
+
+    // --- 2. 民間借貸上傳切換 ---
+    function toggleLoanUpload() {
+        const check = document.getElementById('privateLoanCheck');
+        const box = document.getElementById('privateLoanUploadBox');
+        box.style.display = check.checked ? 'block' : 'none';
+    }
+
+    // --- 3. 範例資料填充 (Demo Data) ---
+    function fillDemoData() {
+        document.getElementById('inputName').value = "王大明";
+        document.getElementById('inputPhone').value = "0912-345-678";
+        document.getElementById('inputEmail').value = "da-ming@gmail.com";
+        document.getElementById('inputFB').value = "facebook.com/daming.wang";
+        document.getElementById('inputEmergencyName').value = "陳小美";
+        document.getElementById('inputEmergencyPhone').value = "0987-654-321";
+        document.getElementById('inputJob').value = "電子零件組裝員";
+        document.getElementById('inputIncome').value = "450000";
+        document.getElementById('inputAmount').value = "100000";
+        document.getElementById('inputReason').value = "transport"; // 選擇購買交通工具
+        document.getElementById('inputDetail').value = "購買 Gogoro 電動機車以便通勤";
+        
+        // 自動完成 KYC 狀態
+        btnOpenKYC.innerHTML = '<i data-lucide="check-circle"></i> 已完成 KYC 授權簽署 (Demo)';
+        btnOpenKYC.classList.add('signed');
+        kycSignedInput.value = "true";
+        
+        lucide.createIcons();
+        
+        // 捲動回表單頂部
+        document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- Original Logic (Bank, Inference, Chat) ---
+    const authCheck = document.getElementById('authCheck');
+    const connectBtn = document.getElementById('btnConnectBank');
+    authCheck.addEventListener('change', (e) => {
+        connectBtn.disabled = !e.target.checked;
+        document.getElementById('bankText').innerText = e.target.checked ? "同意授權並連結銀行帳戶" : "請先勾選同意";
+    });
+
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
-    const fileNameDisplay = document.getElementById('fileName');
-
     uploadArea.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', (e) => {
         if(e.target.files.length > 0) {
-            fileNameDisplay.innerText = "已選擇檔案: " + e.target.files[0].name;
-            uploadArea.style.borderColor = "#10B981";
+            document.getElementById('fileName').innerText = "已選擇: " + e.target.files[0].name;
             uploadArea.style.background = "#ECFDF5";
         }
     });
 
-    /* ===========================
-       Feature: Market Counter Animation
-       =========================== */
-    function animateMarketCount(targetValue) {
-        const element = document.getElementById('marketCount');
-        let startValue = 0; const duration = 2000; const startTime = performance.now();
-        function updateCount(currentTime) {
-            const elapsedTime = currentTime - startTime;
-            const progress = Math.min(elapsedTime / duration, 1);
-            const currentValue = Math.floor(startValue + progress * (targetValue - startValue));
-            element.textContent = currentValue.toLocaleString();
-            if (progress < 1) requestAnimationFrame(updateCount);
-            else element.textContent = targetValue.toLocaleString();
-        }
-        requestAnimationFrame(updateCount);
-    }
-
-    /* ===========================
-       Product 1: Risk Engine Logic
-       =========================== */
     let isConnected = false;
-    
     function simulateBankConnection() {
         if(isConnected) return;
-        
+        // 檢查 KYC
+        if(document.getElementById('kycSigned').value !== "true") {
+            alert("請先完成上方的「KYC 用戶實名認證授權」！");
+            return;
+        }
+
         const btn = document.getElementById('btnConnectBank');
-        const bankText = document.getElementById('bankText');
-        const bankIcon = document.getElementById('bankIcon');
         const featurePanel = document.getElementById('featurePanel');
         const scanPercent = document.getElementById('scanPercent');
         
-        // 1. UI Change: Connecting
         btn.style.opacity = "0.7";
-        bankText.innerText = "建立安全通道中... (Open Banking API)";
-        bankIcon.innerText = "⏳";
-        
-        // Show Feature Panel
         featurePanel.style.display = 'block';
         
-        // 2. Simulate Scanning Process (Feature Engineering)
         let percent = 0;
         const interval = setInterval(() => {
             percent += 5;
             scanPercent.innerText = percent + "%";
-            
-            // Highlight cards based on progress
-            if(percent > 10) highlightCard('feat-1'); // Bank
-            if(percent > 30) highlightCard('feat-2'); // Remittance
-            if(percent > 50) highlightCard('feat-3'); // Consumption
-            if(percent > 70) highlightCard('feat-4'); // Private Lending
-            if(percent > 85) highlightCard('feat-5'); // Social
-            if(percent > 95) highlightCard('feat-6'); // Compliance
-
+            if(percent > 20) document.getElementById('feat-1').classList.add('scanning');
             if(percent >= 100) {
                 clearInterval(interval);
-                finishConnection(btn, bankText, bankIcon);
+                isConnected = true;
+                btn.classList.add('connected');
+                btn.innerHTML = '✅ 已完成多源異質資料特徵提取';
+                document.querySelectorAll('.feature-card').forEach(c => {
+                    c.classList.remove('scanning'); c.classList.add('done');
+                });
+                document.getElementById('btnRunInference').disabled = false;
             }
-        }, 100);
-    }
-
-    function highlightCard(id) {
-        const card = document.getElementById(id);
-        if(!card.classList.contains('scanning')) {
-            card.classList.add('scanning');
-        }
-    }
-
-    function finishConnection(btn, bankText, bankIcon) {
-        isConnected = true;
-        btn.classList.add('connected');
-        btn.style.opacity = "1";
-        bankText.innerText = "已完成多源異質資料特徵提取";
-        bankIcon.innerText = "✅";
-        
-        // Mark all cards as done
-        document.querySelectorAll('.feature-card').forEach(c => {
-            c.classList.remove('scanning');
-            c.classList.add('done');
-        });
-
-        // Enable Next Step
-        document.getElementById('btnRunInference').disabled = false;
+        }, 80);
     }
 
     function runInference() {
         const dashboard = document.getElementById('riskDashboard');
-        const btn = document.getElementById('btnRunInference');
-        const summaryBox = document.getElementById('summaryBox');
         const fundsTable = document.getElementById('fundsTable');
-        
-        // Get Inputs
-        const name = document.getElementById('inputName').value || "申請人";
-        const job = document.getElementById('inputJob').value || "未知職業";
-        const income = document.getElementById('inputIncome').value;
+        const btn = document.getElementById('btnRunInference');
         const amount = parseInt(document.getElementById('inputAmount').value) || 0;
-        const term = parseInt(document.getElementById('inputTerm').value);
         const reasonSelect = document.getElementById('inputReason');
         const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
-        const detail = document.getElementById('inputDetail').value || "無詳細說明";
-        const social = document.getElementById('inputSocial').value || "未提供 (將進行模糊搜尋)";
+        const detail = document.getElementById('inputDetail').value;
 
-        if(amount <= 0) { alert("請輸入有效的貸款金額"); return; }
-
-        btn.disabled = true;
-        btn.innerText = "AI 模型運算中 (LightGBM + RNN)...";
-        document.getElementById('mwcsScore').innerText = "...";
-        document.getElementById('pfcValue').innerText = "...";
+        if(amount <= 0) { alert("請輸入金額"); return; }
         
+        btn.innerText = "AI 運算中...";
+        btn.disabled = true;
+
         setTimeout(() => {
-            // 1. Generate Result Logic
-            const mwcsScore = Math.floor(Math.random() * (92 - 65) + 65); 
-            const pfcValue = Math.floor(Math.random() * (22000 - 12000) + 12000);
-            const monthlyPayment = Math.ceil(amount / term);
-            const affordable = monthlyPayment <= pfcValue;
-
-            let rate = "";
-            let conclusion = "";
-            let scoreColor = "";
+            document.getElementById('mwcsScore').innerText = "82";
+            document.getElementById('mwcsScore').style.color = "#10B981";
+            document.getElementById('pfcValue').innerText = "18,500";
             
-            // Generate Dynamic Feature Comments
-            const featureComments = [
-                `<span class="feature-tag ft-good">匯款特徵</span> 過去12個月匯款頻率穩定 (Weekly)，無中斷紀錄`,
-                `<span class="feature-tag ft-good">消費特徵</span> 必要生活支出佔比 45%，無博弈或異常大額消費`,
-                `<span class="feature-tag ft-warn">社群特徵</span> 已分析連結內容，近期貼文情緒平穩，但地點變動較頻繁`
-            ];
-
-            if (!affordable) {
-                scoreColor = "#EF4444"; 
-                rate = "N/A";
-                conclusion = `<strong style='color:#EF4444'>建議婉拒 (Capacity Issue)</strong>。<br>申請金額分期後月付金 (NT$${monthlyPayment.toLocaleString()}) 超過其 PFCF，還款壓力過大。`;
-            } else {
-                if (mwcsScore >= 80) {
-                    scoreColor = "#10B981"; 
-                    rate = "8% (優質利率)";
-                    conclusion = `<strong style='color:#10B981'>建議核准 (High Approval)</strong>。<br>PFCF 現金流充裕，且匯款規律性高，違約風險極低。`;
-                } else {
-                    scoreColor = "#F59E0B"; 
-                    rate = "12% (標準利率)";
-                    conclusion = `<strong style='color:#F59E0B'>建議核准 (Standard)</strong>。<br>風險屬標準範圍，建議適用標準利率方案。`;
-                }
-            }
-            
-            // UI Update
-            document.getElementById('mwcsScore').innerText = mwcsScore;
-            document.getElementById('mwcsScore').style.color = scoreColor;
-            document.getElementById('pfcValue').innerText = pfcValue.toLocaleString();
-            
-            // Update Summary Report
             document.getElementById('summaryText').innerHTML = `
-                <div style="margin-bottom:10px;">
-                    <span class="report-label">申請人：</span>${name} (${job})<br>
-                    <span class="report-label">年收入申報：</span>NT$${Number(income).toLocaleString()}<br>
-                    <span class="report-label">社群帳號：</span>${social}<br>
-                    <span class="report-label">申請方案：</span>NT$${amount.toLocaleString()} / ${term} 期<br>
-                </div>
-                <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
-                <div style="margin-bottom:10px;">
-                    <strong>🔍 特徵工程分析摘要：</strong><br>
-                    ${featureComments.join('<br>')}
-                </div>
-                <hr style="border:0; border-top:1px dashed #D1D5DB; margin:10px 0;">
-                <div style="background:#F3F4F6; padding:10px; border-radius:8px;">
-                    <span class="report-label">PFCF 真實自由現金流：</span> <strong>NT$${pfcValue.toLocaleString()} / 月</strong><br>
-                    <span class="report-label">MWCS 信用評分：</span> <strong>${mwcsScore} 分</strong><br>
-                    <span class="report-label">建議利率：</span> ${rate}<br>
-                    <div style="margin-top:5px;">${conclusion}</div>
+                <strong>申請人：</strong>${document.getElementById('inputName').value}<br>
+                <strong>KYC 驗證：</strong><span style="color:green">通過</span><br>
+                <strong>社群足跡：</strong>正常 (FB/IG)<br>
+                <strong>民間借貸：</strong>${document.getElementById('privateLoanCheck').checked ? '<span style="color:orange">有 (已審核文件)</span>' : '無'}<br>
+                <hr style="margin:10px 0">
+                <div style="background:#F3F4F6; padding:10px;">
+                    <strong>評估結果：</strong> <span style="color:#10B981">建議核准 (A級)</span>
                 </div>
             `;
-            
-            // Update Funds Table
-            const tbody = document.getElementById('fundsTableBody');
-            tbody.innerHTML = `
-                <tr>
-                    <td>${reasonText} (主要用途)</td>
-                    <td class="money-text">$${amount.toLocaleString()}</td>
-                    <td>${detail}</td>
-                </tr>
+
+            document.getElementById('fundsTableBody').innerHTML = `
+                <tr><td>${reasonText}</td><td class="money-text">$${amount.toLocaleString()}</td><td>${detail}</td></tr>
             `;
             document.getElementById('fundsTotal').innerText = "$" + amount.toLocaleString();
 
             dashboard.classList.add('active');
             fundsTable.style.display = 'block';
-            
+            btn.innerText = "重新執行";
             btn.disabled = false;
-            btn.innerText = "重新執行推論";
-            dashboard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        }, 2500);
+            dashboard.scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
     }
 
-    /* ===========================
-       Product 2: Chat Logic
-       =========================== */
-    const i18n = {
-        "zh-TW": { welcome: "您好，我是移貸宗師的智能客服。請問您想詢問關於貸款、還款或帳戶的問題嗎？", chips: ["如何申請貸款?", "利率是多少?", "查詢餘額"] },
-        "vi": { welcome: "Xin chào, tôi là trợ lý AI. Bạn muốn hỏi về khoản vay hay thanh toán?", chips: ["Làm thế nào để vay?", "Lãi suất bao nhiêu?", "Kiểm tra số dư"] },
-        "id": { welcome: "Halo, saya asisten AI. Ada yang bisa saya bantu terkait pinjaman?", chips: ["Cara meminjam?", "Berapa bunganya?", "Cek saldo"] },
-        "th": { welcome: "สวัสดี! ฉันคือผู้ช่วย AI มีอะไรให้ฉันช่วยไหม?", chips: ["สมัครอย่างไร?", "ดอกเบี้ยเท่าไหร่?", "เช็คยอดคงเหลือ"] },
-        "en": { welcome: "Hello, I am the AI assistant. How can I help you with your loan?", chips: ["How to apply?", "Interest rates?", "Check balance"] }
-    };
-    
-    let currentLang = "zh-TW";
-
-    function openChatDemo() {
-        const widget = document.getElementById('chatWidget');
-        widget.classList.add('active');
-        refreshChatUI();
-    }
-    
-    function closeChatDemo() {
-        document.getElementById('chatWidget').classList.remove('active');
-    }
-
-    function refreshChatUI() {
-        const data = i18n[currentLang];
-        const container = document.getElementById('messagesContainer');
-        const chipsDiv = document.getElementById('quickChips');
-        
-        container.innerHTML = `<div class="msg bot">${data.welcome}</div>`;
-        
-        chipsDiv.innerHTML = "";
-        data.chips.forEach(q => {
-            const btn = document.createElement('button');
-            btn.innerText = q;
-            btn.style.marginRight = "8px";
-            btn.style.padding = "4px 10px";
-            btn.style.borderRadius = "15px";
-            btn.style.border = "1px solid #3B82F6";
-            btn.style.background = "rgba(59,130,246,0.1)";
-            btn.style.color = "#3B82F6";
-            btn.style.cursor = "pointer";
-            btn.onclick = () => sendMsg(q);
-            chipsDiv.appendChild(btn);
-        });
-    }
-
-    document.getElementById('langSelect').addEventListener('change', (e) => {
-        currentLang = e.target.value;
-        refreshChatUI();
-    });
-
+    // Chat
+    function openChatDemo() { document.getElementById('chatWidget').classList.add('active'); }
+    function closeChatDemo() { document.getElementById('chatWidget').classList.remove('active'); }
     function handleSend() {
         const input = document.getElementById('chatInput');
-        const txt = input.value.trim();
-        if(txt) {
-            sendMsg(txt);
+        const container = document.getElementById('messagesContainer');
+        if(input.value) {
+            container.innerHTML += `<div class="msg user">${input.value}</div>`;
+            setTimeout(() => { container.innerHTML += `<div class="msg bot">Demo 回覆: 這是測試訊息</div>`; }, 800);
             input.value = "";
         }
     }
-
-    async function sendMsg(txt) {
-        const container = document.getElementById('messagesContainer');
-        container.innerHTML += `<div class="msg user">${txt}</div>`;
-        container.scrollTop = container.scrollHeight;
-
-        const typingDiv = document.createElement('div');
-        typingDiv.className = "msg bot";
-        typingDiv.innerText = "...";
-        container.appendChild(typingDiv);
-        container.scrollTop = container.scrollHeight;
-
-        try {
-            // Mock Response for Demo
-            setTimeout(() => {
-                 typingDiv.innerText = "這是 Demo 模式的自動回覆。在正式版中，這裡將連接到您的 RAG 後端 API。";
-                 container.scrollTop = container.scrollHeight;
-            }, 1000);
-        } catch(e) {
-            typingDiv.innerText = "Network Error";
-        }
-    }
-
-    window.onload = function() {
-        animateMarketCount(858939); 
-    };
 </script>
-
 </body>
 </html>
-
